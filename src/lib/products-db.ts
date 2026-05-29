@@ -62,9 +62,17 @@ export async function getProducts(filters: CatalogFilters = {}) {
   let query = supabase.from("products").select("*", { count: "exact" }).eq("is_active", true);
 
   if (q) {
-    query = query.or(
-      `name.ilike.%${q}%,brand.ilike.%${q}%,short_description.ilike.%${q}%`
-    );
+    // Full-text search PostgreSQL avec fallback ilike
+    try {
+      query = query.textSearch("fts", q, {
+        type: "websearch",
+        config: "french",
+      });
+    } catch {
+      query = query.or(
+        `name.ilike.%${q}%,brand.ilike.%${q}%,short_description.ilike.%${q}%`
+      );
+    }
   }
   if (categorie) query = query.eq("category", categorie);
   if (marque) query = query.eq("brand", marque);
