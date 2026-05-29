@@ -6,12 +6,11 @@ import { PromoCarousel } from "@/components/PromoCarousel";
 import { ProductCard } from "@/components/ProductCard";
 import { ExpertiseSection } from "@/components/ExpertiseSection";
 import { ReassuranceBar } from "@/components/ReassuranceBar";
-import { PRODUCTS } from "@/data/products";
-import { getFeaturedProducts } from "@/data/products";
+import { getFeaturedProducts } from "@/lib/products-db";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
 
-export default function HomePage() {
-  const { bestSellers, newArrivals, onSale } = getFeaturedProducts();
+export default async function HomePage() {
+  const { bestSellers, newArrivals, onSale } = await getFeaturedProducts();
 
   return (
     <>
@@ -69,7 +68,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <h2 className="section-title">Meilleures ventes</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {(bestSellers.length ? bestSellers : PRODUCTS).slice(0, 4).map((p) => (
+            {bestSellers.slice(0, 4).map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
           </div>
@@ -79,7 +78,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 py-16 md:px-6">
         <h2 className="section-title">Nouveautés</h2>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {(newArrivals.length ? newArrivals : PRODUCTS.slice(0, 4)).map((p) => (
+          {newArrivals.slice(0, 4).map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
         </div>

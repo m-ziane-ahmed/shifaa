@@ -8,14 +8,14 @@ const files = (category: ProductCategory, count: number) =>
   });
 
 export const LOCAL_PRODUCT_IMAGES: Record<ProductCategory, readonly string[]> = {
-  "visage-peau": files("visage-peau", 10),
-  "corps-hygiene": files("corps-hygiene", 10),
-  cheveux: files("cheveux", 10),
-  "bebe-maternite": files("bebe-maternite", 10),
-  complements: files("complements", 10),
-  "bien-etre": files("bien-etre", 10),
-  dispositifs: files("dispositifs", 10),
-  "bio-naturel": files("bio-naturel", 10),
+  "visage-peau": files("visage-peau", 16),
+  "corps-hygiene": files("corps-hygiene", 16),
+  cheveux: files("cheveux", 16),
+  "bebe-maternite": files("bebe-maternite", 16),
+  complements: files("complements", 16),
+  "bien-etre": files("bien-etre", 16),
+  dispositifs: files("dispositifs", 16),
+  "bio-naturel": files("bio-naturel", 16),
 };
 
 export function getLocalProductImage(category: ProductCategory, globalId: number): string {

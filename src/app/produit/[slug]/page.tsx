@@ -10,14 +10,16 @@ import { ProductReviews } from "@/components/ProductReviews";
 import { ProductViewTracker } from "@/components/RecentlyViewed";
 import { StockAlertForm } from "@/components/StockAlertForm";
 import { ProductCard } from "@/components/ProductCard";
-import { getProductBySlug, getRelatedProducts } from "@/data/products";
+import { getProductBySlug, getRelatedProducts } from "@/lib/products-db";
 import { WILAYAS } from "@/data/wilayas";
 import { CATEGORY_LABELS } from "@/data/categories";
 import { formatDZD } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) return { title: "Produit introuvable" };
   return {
     title: product.name,
@@ -27,10 +29,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const related = getRelatedProducts(product);
+  const related = await getRelatedProducts(product);
   const gallery = product.images?.length ? product.images : [product.image];
 
   return (
@@ -177,7 +179,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div className="card-surface p-6">
               <h3 className="font-semibold">Avis clients</h3>
               <p className="mt-4 text-2xl font-semibold">
-                {product.rating}/5 <span className="text-sm font-normal text-shifaa-muted">({product.reviewCount} avis catalogue)</span>
+                {product.rating}/5{" "}
+                <span className="text-sm font-normal text-shifaa-muted">
+                  ({product.reviewCount} avis)
+                </span>
               </p>
             </div>
           </aside>

@@ -1,70 +1,21 @@
 import { Suspense } from "react";
 import { BoutiqueFilters } from "@/components/BoutiqueFilters";
 import { ActiveFilterChips } from "@/components/ActiveFilterChips";
-import { MobileFilterSheet } from "@/components/MobileFilterSheet";import { ComplianceBanner } from "@/components/ComplianceBanner";
+import { MobileFilterSheet } from "@/components/MobileFilterSheet";
+import { ComplianceBanner } from "@/components/ComplianceBanner";
 import { PageHeader } from "@/components/PageHeader";
 import { ProductCard } from "@/components/ProductCard";
 import { CatalogPagination, getPaginationParams } from "@/components/CatalogPagination";
-import { PRODUCTS } from "@/data/products";
+import { getProducts } from "@/lib/products-db";
 import { CATEGORY_LABELS } from "@/data/categories";
-import type { Product, ProductCategory } from "@/lib/types";
+import type { ProductCategory } from "@/lib/types";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Boutique",
   description: "Catalogue parapharmacie — plus de 1500 références avec filtres et livraison nationale.",
 };
-
-function filterProducts(searchParams: { [key: string]: string | string[] | undefined }): Product[] {
-  let list = [...PRODUCTS];
-  const q = typeof searchParams.q === "string" ? searchParams.q.toLowerCase() : "";
-  const cat = searchParams.categorie as ProductCategory | undefined;
-  const marque = searchParams.marque as string | undefined;
-  const prixMax = searchParams["prix-max"] ? Number(searchParams["prix-max"]) : undefined;
-  const stock = searchParams.stock === "1";
-  const tri = searchParams.tri as string | undefined;
-  const wilaya = searchParams.wilaya as string | undefined;
-  const peau = searchParams.peau as string | undefined;
-  const format = searchParams.format as string | undefined;
-  const age = searchParams.age as string | undefined;
-  const besoin = searchParams.besoin as string | undefined;
-
-  if (q) {
-    list = list.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.brand.toLowerCase().includes(q) ||
-        p.shortDescription.toLowerCase().includes(q)
-    );
-  }
-  if (cat && CATEGORY_LABELS[cat]) list = list.filter((p) => p.category === cat);
-  if (marque) list = list.filter((p) => p.brand === marque);
-  if (prixMax) list = list.filter((p) => p.price <= prixMax);
-  if (stock) list = list.filter((p) => p.inStock);
-  if (wilaya) list = list.filter((p) => !p.wilayas?.length || p.wilayas.includes(wilaya));
-  if (peau) list = list.filter((p) => p.skinType?.includes(peau));
-  if (format) list = list.filter((p) => p.format === format);
-  if (age) list = list.filter((p) => p.ageGroup === age);
-  if (besoin) list = list.filter((p) => p.need === besoin);
-
-  switch (tri) {
-    case "prix-asc":
-      list.sort((a, b) => a.price - b.price);
-      break;
-    case "prix-desc":
-      list.sort((a, b) => b.price - a.price);
-      break;
-    case "avis":
-      list.sort((a, b) => b.rating - a.rating);
-      break;
-    case "nouveaute":
-      list.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
-      break;
-    default:
-      list.sort((a, b) => (b.isBestSeller ? 1 : 0) - (a.isBestSeller ? 1 : 0));
-  }
-
-  return list;
-}
 
 export default async function BoutiquePage({
   searchParams,
@@ -72,11 +23,32 @@ export default async function BoutiquePage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const params = await searchParams;
-  const filtered = filterProducts(params);
-  const { currentPage, totalPages, start, pageSize } = getPaginationParams(params, filtered.length);
-  const products = filtered.slice(start, start + pageSize);
+  const pageSize = 12;
+
+  const rawPage = typeof params.page === "string" ? parseInt(params.page) : 1;
+  const currentPage = isNaN(rawPage) || rawPage < 1 ? 1 : rawPage;
+
+  const { products, total, totalPages } = await getProducts({
+    q: typeof params.q === "string" ? params.q : undefined,
+    categorie: typeof params.categorie === "string" ? params.categorie : undefined,
+    marque: typeof params.marque === "string" ? params.marque : undefined,
+    prixMax: params["prix-max"] ? Number(params["prix-max"]) : undefined,
+    stock: params.stock === "1",
+    tri: typeof params.tri === "string" ? params.tri : undefined,
+    peau: typeof params.peau === "string" ? params.peau : undefined,
+    format: typeof params.format === "string" ? params.format : undefined,
+    age: typeof params.age === "string" ? params.age : undefined,
+    besoin: typeof params.besoin === "string" ? params.besoin : undefined,
+    page: currentPage,
+    pageSize,
+  });
+
   const catLabel =
-    typeof params.categorie === "string" ? CATEGORY_LABELS[params.categorie as ProductCategory] : null;
+    typeof params.categorie === "string"
+      ? CATEGORY_LABELS[params.categorie as ProductCategory]
+      : null;
+
+  const { totalPages: computedTotalPages } = getPaginationParams(params, total);
 
   return (
     <>
@@ -106,17 +78,15 @@ export default async function BoutiquePage({
               <div className="mb-4 lg:hidden">
                 <ActiveFilterChips />
               </div>
-            </Suspense>            <p className="mb-6 text-sm text-shifaa-muted">
-              {filtered.length} produit{filtered.length !== 1 ? "s" : ""} au catalogue
+            </Suspense>
+            <p className="mb-6 text-sm text-shifaa-muted">
+              {total} produit{total !== 1 ? "s" : ""} au catalogue
               {typeof params.q === "string" && params.q ? ` pour « ${params.q} »` : ""}
-              {filtered.length > 0 && (
-                <>
-                  {" "}
-                  · page {currentPage}/{totalPages}
-                </>
+              {total > 0 && (
+                <> · page {currentPage}/{totalPages}</>
               )}
             </p>
-            {filtered.length === 0 ? (
+            {products.length === 0 ? (
               <div className="card-surface p-12 text-center">
                 <p className="text-shifaa-muted">Aucun produit ne correspond à vos critères.</p>
               </div>
