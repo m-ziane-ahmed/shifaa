@@ -1,0 +1,40 @@
+{
+  "name": "shifaa",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "catalog:images": "node scripts/download-catalog-images.mjs",
+    "mailpit": "docker compose up mailpit -d",
+    "mailpit:stop": "docker compose stop mailpit",
+    "seed:user": "node scripts/seed-test-user.mjs"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "clsx": "^2.1.1",
+    "iron-session": "^8.0.4",
+    "lucide-react": "^0.468.0",
+    "next": "^15.1.0",
+    "nodemailer": "^8.0.10",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "uuid": "^14.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^22.10.0",
+    "@types/nodemailer": "^8.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "^15.1.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.2"
+  }
+}

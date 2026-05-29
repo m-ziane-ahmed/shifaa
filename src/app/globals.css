@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+  }
+  body {
+    @apply bg-shifaa-cream text-shifaa-ink antialiased;
+    overflow-y: auto;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-shifaa-green px-6 py-3 text-sm font-medium text-white transition hover:bg-shifaa-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shifaa-green;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-shifaa-border bg-white px-6 py-3 text-sm font-medium text-shifaa-ink transition hover:border-shifaa-green hover:text-shifaa-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shifaa-green;
+  }
+  .card-surface {
+    @apply rounded-2xl border border-shifaa-border bg-white shadow-card;
+  }
+  .section-title {
+    @apply font-display text-3xl font-semibold tracking-tight text-shifaa-ink md:text-4xl;
+  }
+  .prose-shifaa {
+    @apply text-shifaa-muted leading-relaxed;
+  }
+}

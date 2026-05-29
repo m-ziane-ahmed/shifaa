@@ -1,0 +1,19 @@
+{
+  "name": "Shifaa Parapharmacie",
+  "short_name": "Shifaa",
+  "description": "Boutique parapharmacie en Algérie — hygiène, soins, compléments autorisés.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF8F5",
+  "theme_color": "#18534F",
+  "lang": "fr",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/brand-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
