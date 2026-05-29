@@ -1,31 +1,50 @@
 import { NextResponse } from "next/server";
-import { createUser, findUserByEmail } from "@/lib/auth-store";
-import { getSession } from "@/lib/session";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 export async function POST(request: Request) {
   try {
     const { email, password, name } = await request.json();
+
     if (!email || !password || !name) {
-      return NextResponse.json({ error: "Champs requis manquants." }, { status: 400 });
-    }
-    if (password.length < 8) {
       return NextResponse.json(
-        { error: "Le mot de passe doit contenir au moins 8 caractères." },
+        { error: "Nom, e-mail et mot de passe requis." },
         { status: 400 }
       );
     }
-    if (findUserByEmail(email)) {
-      return NextResponse.json({ error: "Un compte existe déjà avec cet e-mail." }, { status: 409 });
+
+    const supabase = await createServerSupabaseClient();
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { name } },
+    });
+
+    if (error) {
+      if (error.message.includes("already registered")) {
+        return NextResponse.json(
+          { error: "Cet e-mail est déjà utilisé." },
+          { status: 409 }
+        );
+      }
+      return NextResponse.json({ error: error.message }, { status: 400 });
     }
-    const user = await createUser(email, password, name);
-    const session = await getSession();
-    session.userId = user.id;
-    session.email = user.email;
-    session.name = user.name;
-    session.isLoggedIn = true;
-    await session.save();
-    return NextResponse.json({ ok: true, user: { id: user.id, email: user.email, name: user.name } });
+
+    if (!data.user) {
+      return NextResponse.json(
+        { error: "Erreur lors de l'inscription." },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({
+      ok: true,
+      user: {
+        id: data.user.id,
+        email: data.user.email,
+        name: data.user.user_metadata?.name ?? "",
+      },
+    });
   } catch {
-    return NextResponse.json({ error: "Erreur lors de l'inscription." }, { status: 500 });
+    return NextResponse.json({ error: "Erreur serveur." }, { status: 500 });
   }
 }

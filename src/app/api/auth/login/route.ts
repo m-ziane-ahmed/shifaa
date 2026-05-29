@@ -1,24 +1,38 @@
 import { NextResponse } from "next/server";
-import { findUserByEmail, verifyPassword } from "@/lib/auth-store";
-import { getSession } from "@/lib/session";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
+
     if (!email || !password) {
-      return NextResponse.json({ error: "E-mail et mot de passe requis." }, { status: 400 });
+      return NextResponse.json(
+        { error: "E-mail et mot de passe requis." },
+        { status: 400 }
+      );
     }
-    const user = findUserByEmail(email);
-    if (!user || !(await verifyPassword(password, user.passwordHash))) {
-      return NextResponse.json({ error: "Identifiants incorrects." }, { status: 401 });
+
+    const supabase = await createServerSupabaseClient();
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      return NextResponse.json(
+        { error: "Identifiants incorrects." },
+        { status: 401 }
+      );
     }
-    const session = await getSession();
-    session.userId = user.id;
-    session.email = user.email;
-    session.name = user.name;
-    session.isLoggedIn = true;
-    await session.save();
-    return NextResponse.json({ ok: true, user: { id: user.id, email: user.email, name: user.name } });
+
+    return NextResponse.json({
+      ok: true,
+      user: {
+        id: data.user.id,
+        email: data.user.email,
+        name: data.user.user_metadata?.name ?? "",
+      },
+    });
   } catch {
     return NextResponse.json({ error: "Erreur de connexion." }, { status: 500 });
   }

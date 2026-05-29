@@ -1,12 +1,17 @@
 import { NextResponse } from "next/server";
-import { getSession } from "@/lib/session";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 export async function GET() {
-  const session = await getSession();
-  if (!session.isLoggedIn || !session.userId) {
-    return NextResponse.json({ user: null });
-  }
+  const supabase = await createServerSupabaseClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) return NextResponse.json({ user: null });
+
   return NextResponse.json({
-    user: { id: session.userId, email: session.email, name: session.name },
+    user: {
+      id: user.id,
+      email: user.email,
+      name: user.user_metadata?.name ?? "",
+    },
   });
 }
