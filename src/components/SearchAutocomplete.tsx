@@ -44,7 +44,7 @@ function highlight(text: string, query: string): React.ReactNode {
   );
 }
 
-export function SearchAutocomplete({ variant = "header", onSelect }: Props) {
+export function SearchAutocomplete({ onSelect }: Props) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -143,7 +143,6 @@ export function SearchAutocomplete({ variant = "header", onSelect }: Props) {
           className={inputClass}
           autoComplete="off"
           aria-label="Recherche de produits"
-          aria-expanded={showDropdown}
           aria-autocomplete="list"
         />
         {query && (
@@ -202,7 +201,7 @@ export function SearchAutocomplete({ variant = "header", onSelect }: Props) {
           {!loading && results.length > 0 && (
             <ul role="listbox" aria-label="Suggestions de produits">
               {results.map((p) => (
-                <li key={p.id} role="option">
+                <li key={p.id} role="option" aria-selected={false}>
                   <Link
                     href={`/produit/${p.slug}`}
                     onClick={() => {

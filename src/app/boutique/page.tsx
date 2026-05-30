@@ -48,7 +48,7 @@ export default async function BoutiquePage({
       ? CATEGORY_LABELS[params.categorie as ProductCategory]
       : null;
 
-  const { totalPages: computedTotalPages } = getPaginationParams(params, total);
+  void getPaginationParams(params, total);
 
   return (
     <>
