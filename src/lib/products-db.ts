@@ -41,12 +41,22 @@ export interface CatalogFilters {
   categorie?: string;
   marque?: string;
   prixMax?: number;
+  prixMin?: number;
   stock?: boolean;
   tri?: string;
   peau?: string;
   format?: string;
   age?: string;
   besoin?: string;
+  genre?: string;
+  noteMini?: number;
+  isBio?: boolean;
+  isVegan?: boolean;
+  isSansParfum?: boolean;
+  isSansParabene?: boolean;
+  isCertifie?: boolean;
+  enPromo?: boolean;
+  isNew?: boolean;
   page?: number;
   pageSize?: number;
 }
@@ -54,48 +64,61 @@ export interface CatalogFilters {
 export async function getProducts(filters: CatalogFilters = {}) {
   const supabase = createAdminClient();
   const {
-    q, categorie, marque, prixMax, stock,
-    tri, peau, format, age, besoin,
+    q, categorie, marque, prixMax, prixMin, stock, tri,
+    peau, format, age, besoin, genre, noteMini,
+    isBio, isVegan, isSansParfum, isSansParabene, isCertifie,
+    enPromo, isNew,
     page = 1, pageSize = 12,
   } = filters;
 
   let query = supabase.from("products").select("*", { count: "exact" }).eq("is_active", true);
 
+  // ── Recherche texte ──────────────────────────────────────
   if (q) {
-    // Full-text search PostgreSQL avec fallback ilike
     try {
-      query = query.textSearch("fts", q, {
-        type: "websearch",
-        config: "french",
-      });
+      query = query.textSearch("fts", q, { type: "websearch", config: "french" });
     } catch {
-      query = query.or(
-        `name.ilike.%${q}%,brand.ilike.%${q}%,short_description.ilike.%${q}%`
-      );
+      query = query.or(`name.ilike.%${q}%,brand.ilike.%${q}%,short_description.ilike.%${q}%`);
     }
   }
-  if (categorie) query = query.eq("category", categorie);
-  if (marque) query = query.eq("brand", marque);
-  if (prixMax) query = query.lte("price", prixMax);
-  if (stock) query = query.gt("stock", 0);
-  if (peau) query = query.contains("skin_type", [peau]);
-  if (format) query = query.eq("format", format);
-  if (age) query = query.eq("age_group", age);
-  if (besoin) query = query.eq("need", besoin);
 
+  // ── Filtres catalogue ─────────────────────────────────────
+  if (categorie)          query = query.eq("category", categorie);
+  if (marque)             query = query.eq("brand", marque);
+  if (prixMax)            query = query.lte("price", prixMax);
+  if (prixMin)            query = query.gte("price", prixMin);
+  if (stock)              query = query.gt("stock", 0);
+  if (enPromo)            query = query.not("compare_at_price", "is", null);
+  if (isNew)              query = query.eq("is_new", true);
+  if (noteMini)           query = query.gte("rating", noteMini);
+
+  // ── Filtres parapharmacie ─────────────────────────────────
+  if (peau)               query = query.contains("skin_type", [peau]);
+  if (format)             query = query.eq("format", format);
+  if (age)                query = query.eq("age_group", age);
+  if (besoin)             query = query.eq("need", besoin);
+  if (genre)              query = query.eq("gender", genre);
+  if (isBio)              query = query.eq("is_bio", true);
+  if (isVegan)            query = query.eq("is_vegan", true);
+  if (isSansParfum)       query = query.eq("is_sans_parfum", true);
+  if (isSansParabene)     query = query.eq("is_sans_parabene", true);
+  if (isCertifie)         query = query.eq("is_certifie", true);
+
+  // ── Tri ───────────────────────────────────────────────────
   switch (tri) {
-    case "prix-asc":  query = query.order("price", { ascending: true }); break;
-    case "prix-desc": query = query.order("price", { ascending: false }); break;
-    case "avis":      query = query.order("rating", { ascending: false }); break;
-    case "nouveaute": query = query.order("is_new", { ascending: false }); break;
-    default:          query = query.order("is_best_seller", { ascending: false }); break;
+    case "prix-asc":      query = query.order("price", { ascending: true }); break;
+    case "prix-desc":     query = query.order("price", { ascending: false }); break;
+    case "avis":          query = query.order("rating", { ascending: false }); break;
+    case "nouveaute":     query = query.order("is_new", { ascending: false }); break;
+    case "promotions":    query = query.order("compare_at_price", { ascending: false, nullsFirst: false }); break;
+    case "recommandes":   query = query.order("rating", { ascending: false }).order("review_count", { ascending: false }); break;
+    default:              query = query.order("is_best_seller", { ascending: false }); break;
   }
 
   const from = (page - 1) * pageSize;
   query = query.range(from, from + pageSize - 1);
 
   const { data, count, error } = await query;
-
   if (error) throw new Error(error.message);
 
   return {
@@ -109,12 +132,8 @@ export async function getProducts(filters: CatalogFilters = {}) {
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   const supabase = createAdminClient();
   const { data, error } = await supabase
-    .from("products")
-    .select("*")
-    .eq("slug", slug)
-    .eq("is_active", true)
-    .single();
-
+    .from("products").select("*")
+    .eq("slug", slug).eq("is_active", true).single();
   if (error || !data) return null;
   return mapProduct(data);
 }
@@ -122,25 +141,31 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
 export async function getRelatedProducts(product: Product, limit = 4): Promise<Product[]> {
   const supabase = createAdminClient();
   const { data } = await supabase
-    .from("products")
-    .select("*")
-    .eq("category", product.category)
-    .eq("is_active", true)
-    .neq("id", product.id)
-    .limit(limit);
+    .from("products").select("*")
+    .eq("category", product.category).eq("is_active", true)
+    .neq("id", product.id).limit(limit);
+  return (data ?? []).map(mapProduct);
+}
 
+export async function getComplementaryProducts(product: Product, limit = 4): Promise<Product[]> {
+  const supabase = createAdminClient();
+  // Produits complémentaires = même besoin, catégorie différente
+  if (!product.need) return getRelatedProducts(product, limit);
+  const { data } = await supabase
+    .from("products").select("*")
+    .eq("need", product.need).eq("is_active", true)
+    .neq("category", product.category).neq("id", product.id)
+    .order("rating", { ascending: false }).limit(limit);
   return (data ?? []).map(mapProduct);
 }
 
 export async function getFeaturedProducts() {
   const supabase = createAdminClient();
-
   const [bestSellers, newArrivals, onSale] = await Promise.all([
     supabase.from("products").select("*").eq("is_active", true).eq("is_best_seller", true).limit(8),
     supabase.from("products").select("*").eq("is_active", true).eq("is_new", true).limit(8),
     supabase.from("products").select("*").eq("is_active", true).not("compare_at_price", "is", null).limit(8),
   ]);
-
   return {
     bestSellers: (bestSellers.data ?? []).map(mapProduct),
     newArrivals: (newArrivals.data ?? []).map(mapProduct),
@@ -151,6 +176,5 @@ export async function getFeaturedProducts() {
 export async function getAllBrands(): Promise<string[]> {
   const supabase = createAdminClient();
   const { data } = await supabase.from("products").select("brand").eq("is_active", true);
-  const brands = [...new Set((data ?? []).map((r) => r.brand as string))].sort();
-  return brands;
+  return [...new Set((data ?? []).map((r) => r.brand as string))].sort();
 }
