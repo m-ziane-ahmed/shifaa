@@ -35,6 +35,25 @@ export interface Product {
   ageGroup?: string;
   format?: string;
   images?: string[];
+  // Nouveaux champs fiche enrichie
+  sku?: string;
+  isBio?: boolean;
+  isVegan?: boolean;
+  isSansParfum?: boolean;
+  isSansParabene?: boolean;
+  isCertifie?: boolean;
+  gender?: string;
+  subcategory?: string;
+  targetAudience?: string;
+  usageWhen?: string;
+  usageFrequency?: string;
+  usageQuantity?: string;
+  usageDuration?: string;
+  activeIngredients?: string[];
+  allergens?: string[];
+  conservationConditions?: string;
+  regulatoryCategory?: string;
+  supplierCertified?: boolean;
 }
 
 export interface Wilaya {
@@ -43,4 +62,13 @@ export interface Wilaya {
   deliveryDays: string;
   homeDelivery: boolean;
   relayAvailable: boolean;
+}
+
+export interface ProductQA {
+  id: string;
+  productId: string;
+  question: string;
+  answer: string;
+  askedBy?: string;
+  answeredAt: string;
 }

@@ -21,7 +21,7 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-br from-shifaa-lime/30 via-shifaa-cream to-shifaa-cream" />
         <div className="relative mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
           <div className="max-w-2xl">
-            <p className="text-sm font-medium lowercase tracking-widest text-shifaa-green">
+            <p className="text-sm font-medium ing-widest text-shifaa-green">
               Parapharmacie · Algérie
             </p>
             <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-shifaa-ink md:text-5xl lg:text-6xl">
