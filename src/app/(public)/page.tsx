@@ -21,7 +21,7 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-br from-shifaa-lime/30 via-shifaa-cream to-shifaa-cream" />
         <div className="relative mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
           <div className="max-w-2xl">
-            <p className="text-sm font-medium uppercase tracking-widest text-shifaa-green">
+            <p className="text-sm font-medium lowercase tracking-widest text-shifaa-green">
               Parapharmacie · Algérie
             </p>
             <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-shifaa-ink md:text-5xl lg:text-6xl">
@@ -52,8 +52,10 @@ export default async function HomePage() {
       <section className="mx-auto max-w-6xl px-4 py-16 md:px-6">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <h2 className="section-title">Catégories phares</h2>
-            <p className="mt-2 prose-shifaa">Explorez notre catalogue par univers</p>
+            <h2 className="font-display text-3xl font-semibold tracking-tight text-shifaa-ink">
+              Catégories phares
+            </h2>
+            <p className="mt-2 text-shifaa-muted">Explorez notre catalogue par univers</p>
           </div>
           <Link href="/boutique" className="hidden text-sm font-medium text-shifaa-green hover:underline sm:block">
             Voir tout →
@@ -66,7 +68,7 @@ export default async function HomePage() {
 
       <section className="bg-white py-16">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <h2 className="section-title">Meilleures ventes</h2>
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-shifaa-ink">Meilleures ventes</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {bestSellers.slice(0, 4).map((p) => (
               <ProductCard key={p.id} product={p} />
@@ -76,7 +78,7 @@ export default async function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 md:px-6">
-        <h2 className="section-title">Nouveautés</h2>
+        <h2 className="font-display text-3xl font-semibold tracking-tight text-shifaa-ink">Nouveautés</h2>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {newArrivals.slice(0, 4).map((p) => (
             <ProductCard key={p.id} product={p} />
@@ -92,7 +94,7 @@ export default async function HomePage() {
       {onSale.length > 0 && (
         <section className="bg-shifaa-lime/15 py-16">
           <div className="mx-auto max-w-6xl px-4 md:px-6">
-            <h2 className="section-title">Promotions du moment</h2>
+            <h2 className="font-display text-3xl font-semibold tracking-tight text-shifaa-ink">Promotions du moment</h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {onSale.map((p) => (
                 <ProductCard key={p.id} product={p} />

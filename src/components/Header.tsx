@@ -12,7 +12,7 @@ import { CATEGORIES } from "@/data/categories";
 import { SITE } from "@/lib/site";
 import { SocialLinks } from "@/components/SocialLinks";
 
-const NAV = [
+const NAV: Array<{ href: string; label: string; badge?: string }> = [
   { href: "/boutique", label: "Boutique" },
   { href: "/promotions", label: "Promotions", badge: "Promo" },
   { href: "/nouveautes", label: "Nouveautés", badge: "New" },
