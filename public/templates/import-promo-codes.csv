@@ -1,0 +1,4 @@
+code,discount_type,value,min_order,max_uses,expires_at
+PROMO20,percent,20,2000,100,2026-12-31
+BIENVENUE,percent,10,0,500,2026-12-31
+ETE500,fixed,500,3000,50,2026-09-30

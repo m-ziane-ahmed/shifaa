@@ -1,0 +1,5 @@
+code,fee_home,fee_relay,free_above,delivery_days_home,delivery_days_relay,active
+16,350,250,5000,1-2 jours,2-3 jours,true
+31,400,300,5000,2-3 jours,3-4 jours,true
+25,450,350,5000,2-4 jours,3-5 jours,true
+09,400,300,5000,1-2 jours,2-3 jours,true
