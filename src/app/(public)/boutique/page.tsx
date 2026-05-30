@@ -74,7 +74,7 @@ export default async function BoutiquePage({
           {/* Sidebar filtres desktop */}
           <aside className="hidden lg:block lg:w-60 shrink-0">
             <div className="sticky top-24 card-surface p-4">
-              <Suspense fallback={<p className="text-sm text-shifaa-muted">Chargement…</p>}>
+              <Suspense fallback={<div className="h-96 animate-pulse rounded-xl bg-shifaa-cream" />}>
                 <BoutiqueFilters />
               </Suspense>
             </div>
@@ -87,7 +87,9 @@ export default async function BoutiquePage({
               <p className="text-sm text-shifaa-muted">
                 <span className="font-medium text-shifaa-ink">{total}</span> produit{total !== 1 ? "s" : ""}
               </p>
-              <MobileFilterSheet />
+              <Suspense fallback={null}>
+                <MobileFilterSheet />
+              </Suspense>
             </div>
 
             <Suspense fallback={

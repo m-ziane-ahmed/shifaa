@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useState } from "react";
 import { SortBar } from "@/components/SortBar";
 import { ProductCard } from "@/components/ProductCard";
@@ -24,14 +25,18 @@ export function BoutiqueClient({
 
   return (
     <>
-      <ActiveFilterChips />
-      <SortBar
-        total={total}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        view={view}
-        onViewChange={setView}
-      />
+      <Suspense fallback={null}>
+        <ActiveFilterChips />
+      </Suspense>
+      <Suspense fallback={<div className="h-14 rounded-xl bg-white animate-pulse mb-6" />}>
+        <SortBar
+          total={total}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          view={view}
+          onViewChange={setView}
+        />
+      </Suspense>
       {products.length === 0 ? (
         <div className="card-surface p-12 text-center">
           <p className="text-4xl mb-3">🔍</p>
