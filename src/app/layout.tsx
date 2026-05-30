@@ -1,11 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Outfit } from "next/font/google";
-import { CookieConsent } from "@/components/CookieConsent";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-import { PageLoader } from "@/components/PageLoader";
 import { Providers } from "@/components/Providers";
-import { ScrollToTop } from "@/components/ScrollToTop";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -51,12 +46,7 @@ export default function RootLayout({
     <html lang="fr" className={`${outfit.variable} ${fraunces.variable}`}>
       <body className="font-sans min-h-screen flex flex-col">
         <Providers>
-          <PageLoader />
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <ScrollToTop />
-          <CookieConsent />
+          {children}
         </Providers>
       </body>
     </html>
