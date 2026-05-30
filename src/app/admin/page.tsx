@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase-server";
 import { formatDZD } from "@/lib/utils";
 
@@ -64,9 +65,9 @@ export default async function AdminDashboard() {
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
           <h2 className="font-medium text-gray-900">Commandes récentes</h2>
-          <a href="/admin/commandes" className="text-sm text-shifaa-green hover:underline">
+          <Link href="/admin/commandes" className="text-sm text-shifaa-green hover:underline">
             Voir toutes →
-          </a>
+          </Link>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 
@@ -45,23 +46,20 @@ function AdminSidebar() {
       </div>
       <nav className="flex-1 p-3 space-y-1">
         {links.map((l) => (
-          <a
+          <Link
             key={l.href}
             href={l.href}
             className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors text-sm"
           >
             <span>{l.icon}</span>
             {l.label}
-          </a>
+          </Link>
         ))}
       </nav>
       <div className="p-3 border-t border-white/10">
-        <a
-          href="/"
-          className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/50 hover:text-white/80 text-xs transition-colors"
-        >
+        <Link href="/" className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/50 hover:text-white/80 text-xs transition-colors">
           ← Retour au site
-        </a>
+        </Link>
       </div>
     </aside>
   );

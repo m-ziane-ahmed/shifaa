@@ -1,4 +1,5 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
+import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase-server";
 import { formatDZD } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
@@ -52,7 +53,7 @@ export default async function AdminCommandeDetail({
   return (
     <div>
       <div className="flex items-center gap-3 mb-6">
-        <a href="/admin/commandes" className="text-gray-400 hover:text-gray-600 text-sm">← Commandes</a>
+        <Link href="/admin/commandes" className="text-gray-400 hover:text-gray-600 text-sm">← Commandes</Link>
         <span className="text-gray-300">/</span>
         <h1 className="text-xl font-semibold text-gray-900 font-mono">{id}</h1>
         <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${STATUS_COLORS[order.status] ?? ""}`}>
@@ -60,7 +61,6 @@ export default async function AdminCommandeDetail({
         </span>
       </div>
 
-      {/* Progression statut */}
       {order.status !== "cancelled" && (
         <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
           <p className="text-sm font-medium text-gray-700 mb-4">Progression de la commande</p>
@@ -82,21 +82,17 @@ export default async function AdminCommandeDetail({
               </div>
             ))}
           </div>
-
-          {/* Actions changement statut */}
           <div className="mt-4 flex gap-2 flex-wrap">
             {STATUS_STEPS.filter((s) => s !== order.status).map((s) => (
               <form key={s} action={async () => { "use server"; await updateStatus(s); }}>
-                <button type="submit"
-                  className="px-3 py-1.5 text-xs border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <button type="submit" className="px-3 py-1.5 text-xs border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                   → {STATUS_LABELS[s]}
                 </button>
               </form>
             ))}
             {order.status !== "cancelled" && (
               <form action={async () => { "use server"; await updateStatus("cancelled"); }}>
-                <button type="submit"
-                  className="px-3 py-1.5 text-xs border border-red-200 text-red-600 rounded-lg hover:bg-red-50 transition-colors">
+                <button type="submit" className="px-3 py-1.5 text-xs border border-red-200 text-red-600 rounded-lg hover:bg-red-50 transition-colors">
                   ✕ Annuler
                 </button>
               </form>
@@ -106,7 +102,6 @@ export default async function AdminCommandeDetail({
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {/* Infos client */}
         <div className="bg-white rounded-xl border border-gray-200 p-5">
           <h2 className="font-medium text-gray-900 mb-3">Client</h2>
           <div className="space-y-2 text-sm">
@@ -119,7 +114,6 @@ export default async function AdminCommandeDetail({
           </div>
         </div>
 
-        {/* Livraison */}
         <div className="bg-white rounded-xl border border-gray-200 p-5">
           <h2 className="font-medium text-gray-900 mb-3">Livraison</h2>
           <div className="space-y-2 text-sm">
@@ -130,7 +124,6 @@ export default async function AdminCommandeDetail({
           </div>
         </div>
 
-        {/* Paiement */}
         <div className="bg-white rounded-xl border border-gray-200 p-5">
           <h2 className="font-medium text-gray-900 mb-3">Paiement</h2>
           <div className="space-y-2 text-sm">
@@ -149,7 +142,6 @@ export default async function AdminCommandeDetail({
         </div>
       </div>
 
-      {/* Articles */}
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mt-4">
         <div className="px-5 py-4 border-b border-gray-100">
           <h2 className="font-medium text-gray-900">Articles commandés</h2>
