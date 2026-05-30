@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, HelpCircle, Mail } from "lucide-react";
+import { ArrowRight, BookOpen, HelpCircle, Mail, Shield, Star, Users, Package, Truck, Lock } from "lucide-react";
 import { CategoryGrid } from "@/components/CategoryGrid";
 import { ComplianceBanner } from "@/components/ComplianceBanner";
 import { PromoCarousel } from "@/components/PromoCarousel";
@@ -142,6 +142,70 @@ export default async function HomePage() {
       </section>
 
       <RecentlyViewed />
+
+      {/* Preuve sociale */}
+      <section className="bg-shifaa-dark text-white py-12">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {/* Stats */}
+            <div className="space-y-4">
+              <h2 className="font-display text-xl font-semibold text-shifaa-lime">Shifaa en chiffres</h2>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { icon: Package, value: "1 500+", label: "références" },
+                  { icon: Users, value: "5 000+", label: "clients" },
+                  { icon: Truck, value: "98%", label: "livraisons réussies" },
+                  { icon: Star, value: "4.8/5", label: "satisfaction" },
+                ].map(({ icon: Icon, value, label }) => (
+                  <div key={label} className="rounded-xl bg-white/5 p-3 text-center">
+                    <Icon className="h-4 w-4 text-shifaa-lime mx-auto mb-1" />
+                    <p className="text-lg font-bold">{value}</p>
+                    <p className="text-xs text-white/60">{label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* Garanties */}
+            <div className="space-y-3">
+              <h2 className="font-display text-xl font-semibold text-shifaa-lime">Nos garanties</h2>
+              {[
+                { icon: Shield, label: "Produits authentiques garantis", sub: "Fournisseurs agréés uniquement" },
+                { icon: Lock, label: "Paiement 100% sécurisé", sub: "CIB, Edahabia, paiement à la livraison" },
+                { icon: Truck, label: "Livraison suivie", sub: "Notification SMS/email à chaque étape" },
+              ].map(({ icon: Icon, label, sub }) => (
+                <div key={label} className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-shifaa-lime/20">
+                    <Icon className="h-4 w-4 text-shifaa-lime" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">{label}</p>
+                    <p className="text-xs text-white/50">{sub}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* Direction scientifique */}
+            <div className="space-y-3">
+              <h2 className="font-display text-xl font-semibold text-shifaa-lime">Expertise validée</h2>
+              <div className="rounded-xl bg-white/5 p-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-2xl">👩‍⚕️</span>
+                  <div>
+                    <p className="font-medium text-sm">Docteur S.Benali</p>
+                    <p className="text-xs text-white/60">Docteur en Pharmacie</p>
+                  </div>
+                </div>
+                <p className="text-sm text-white/70 leading-relaxed">
+                  Direction scientifique qui valide nos contenus et notre sélection produits pour un accompagnement de confiance.
+                </p>
+              </div>
+              <Link href="/a-propos" className="inline-flex items-center gap-2 text-sm text-shifaa-lime hover:underline">
+                En savoir plus sur Shifaa →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-16 md:px-6">
         <ComplianceBanner compact />
