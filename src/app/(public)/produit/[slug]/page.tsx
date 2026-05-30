@@ -10,6 +10,7 @@ import { ProductReviews } from "@/components/ProductReviews";
 import { ProductViewTracker } from "@/components/RecentlyViewed";
 import { StockAlertForm } from "@/components/StockAlertForm";
 import { ProductCard } from "@/components/ProductCard";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { getProductBySlug, getRelatedProducts } from "@/lib/products-db";
 import { WILAYAS } from "@/data/wilayas";
 import { CATEGORY_LABELS } from "@/data/categories";
@@ -38,14 +39,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   return (
     <>
       <ProductViewTracker productId={product.id} />
-      <div className="mx-auto max-w-6xl px-4 py-10 md:px-6">
-        <nav className="mb-6 text-sm text-shifaa-muted" aria-label="Fil d'Ariane">
-          <Link href="/" className="hover:text-shifaa-green">Accueil</Link>
-          <span className="mx-2">/</span>
-          <Link href="/boutique" className="hover:text-shifaa-green">Boutique</Link>
-          <span className="mx-2">/</span>
-          <span className="text-shifaa-ink">{product.name}</span>
-        </nav>
+      <div className="mx-auto max-w-6xl px-4 pt-4 md:px-6">
+        <Breadcrumb items={[
+          { label: "Boutique", href: "/boutique" },
+          { label: CATEGORY_LABELS[product.category], href: `/boutique?categorie=${product.category}` },
+          { label: product.name },
+        ]} />
+      </div>
+      <div className="mx-auto max-w-6xl px-4 py-6 md:px-6">
 
         <div className="grid gap-10 lg:grid-cols-2">
           <ProductGallery images={gallery} name={product.name} />

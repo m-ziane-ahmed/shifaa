@@ -1,11 +1,9 @@
 import { Suspense } from "react";
 import { BoutiqueFilters } from "@/components/BoutiqueFilters";
-import { ActiveFilterChips } from "@/components/ActiveFilterChips";
 import { MobileFilterSheet } from "@/components/MobileFilterSheet";
 import { ComplianceBanner } from "@/components/ComplianceBanner";
-import { PageHeader } from "@/components/PageHeader";
-import { ProductCard } from "@/components/ProductCard";
-import { CatalogPagination, getPaginationParams } from "@/components/CatalogPagination";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { BoutiqueClient } from "@/components/BoutiqueClient";
 import { getProducts } from "@/lib/products-db";
 import { CATEGORY_LABELS } from "@/data/categories";
 import type { ProductCategory } from "@/lib/types";
@@ -48,62 +46,65 @@ export default async function BoutiquePage({
       ? CATEGORY_LABELS[params.categorie as ProductCategory]
       : null;
 
-  void getPaginationParams(params, total);
+  const breadcrumbItems = [
+    { label: "Boutique", href: "/boutique" },
+    ...(catLabel ? [{ label: catLabel }] : []),
+    ...(params.q ? [{ label: `"${params.q}"` }] : []),
+  ];
 
   return (
     <>
-      <PageHeader
-        title={catLabel ? catLabel : "Boutique"}
-        description="Plus de 1 500 références parapharmaceutiques. Filtrez par catégorie, marque, prix en DZD, disponibilité et wilaya de livraison."
-      />
       <ComplianceBanner compact />
+      <div className="mx-auto max-w-6xl px-4 md:px-6">
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
 
-      <div className="mx-auto max-w-6xl px-4 py-10 md:px-6">
-        <div className="flex flex-col gap-10 lg:flex-row">
-          <div className="hidden lg:block lg:w-56 shrink-0">
-            <Suspense fallback={<p className="text-sm text-shifaa-muted">Chargement des filtres…</p>}>
-              <BoutiqueFilters />
-            </Suspense>
-          </div>
-          <div className="flex-1">
-            <div className="mb-4 flex flex-wrap items-center justify-end gap-4 lg:justify-between">
-              <div className="hidden flex-1 lg:block">
-                <Suspense fallback={null}>
-                  <ActiveFilterChips />
-                </Suspense>
-              </div>
+      <div className="mx-auto max-w-6xl px-4 pb-16 md:px-6">
+        {/* Titre page */}
+        <div className="mb-6">
+          <h1 className="text-2xl font-display font-semibold text-shifaa-ink">
+            {catLabel ?? (params.q ? `Résultats pour "${params.q}"` : "Boutique")}
+          </h1>
+          <p className="text-sm text-shifaa-muted mt-1">
+            Plus de 1 500 références parapharmaceutiques · Livraison nationale
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-8 lg:flex-row">
+          {/* Sidebar filtres desktop */}
+          <aside className="hidden lg:block lg:w-60 shrink-0">
+            <div className="sticky top-24 card-surface p-4">
+              <Suspense fallback={<p className="text-sm text-shifaa-muted">Chargement…</p>}>
+                <BoutiqueFilters />
+              </Suspense>
+            </div>
+          </aside>
+
+          {/* Contenu principal */}
+          <div className="flex-1 min-w-0">
+            {/* Filtres mobile */}
+            <div className="flex items-center justify-between mb-4 lg:hidden">
+              <p className="text-sm text-shifaa-muted">
+                <span className="font-medium text-shifaa-ink">{total}</span> produit{total !== 1 ? "s" : ""}
+              </p>
               <MobileFilterSheet />
             </div>
-            <Suspense fallback={null}>
-              <div className="mb-4 lg:hidden">
-                <ActiveFilterChips />
+
+            <Suspense fallback={
+              <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} className="aspect-square rounded-2xl bg-shifaa-cream animate-pulse" />
+                ))}
               </div>
+            }>
+              <BoutiqueClient
+                products={products}
+                total={total}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                searchParams={params}
+              />
             </Suspense>
-            <p className="mb-6 text-sm text-shifaa-muted">
-              {total} produit{total !== 1 ? "s" : ""} au catalogue
-              {typeof params.q === "string" && params.q ? ` pour « ${params.q} »` : ""}
-              {total > 0 && (
-                <> · page {currentPage}/{totalPages}</>
-              )}
-            </p>
-            {products.length === 0 ? (
-              <div className="card-surface p-12 text-center">
-                <p className="text-shifaa-muted">Aucun produit ne correspond à vos critères.</p>
-              </div>
-            ) : (
-              <>
-                <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                  {products.map((p) => (
-                    <ProductCard key={p.id} product={p} />
-                  ))}
-                </div>
-                <CatalogPagination
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  searchParams={params}
-                />
-              </>
-            )}
           </div>
         </div>
       </div>
