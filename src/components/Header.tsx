@@ -389,13 +389,13 @@ export function Header() {
           </div>
 
           {/* ─ PROMOTIONS ─ */}
-          <Link href="/promotions" className="flex items-center gap-1.5 px-4 py-3 text-sm font-medium text-red-600 hover:text-red-700 transition-colors whitespace-nowrap">
-            Promotions <span className="rounded-full bg-red-100 px-1.5 py-0.5 text-[10px] font-bold">Promo</span>
+          <Link href="/promotions" className="flex items-center px-3 py-3 text-xs font-medium text-red-600 hover:text-red-700 transition-colors whitespace-nowrap">
+            Promotions
           </Link>
 
           {/* ─ NOUVEAUTÉS ─ */}
-          <Link href="/nouveautes" className="flex items-center gap-1.5 px-4 py-3 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors whitespace-nowrap">
-            Nouveautés <span className="rounded-full bg-blue-100 px-1.5 py-0.5 text-[10px] font-bold">New</span>
+          <Link href="/nouveautes" className="flex items-center px-3 py-3 text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors whitespace-nowrap">
+            Nouveautés
           </Link>
 
           {/* ─ MES BESOINS ─ */}

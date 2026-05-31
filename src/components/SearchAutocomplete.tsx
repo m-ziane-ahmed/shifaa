@@ -221,7 +221,7 @@ export function SearchAutocomplete({ onSelect }: Props) {
   const hasHistory = history.length > 0;
 
   const inputClass =
-    "w-full rounded-full border border-shifaa-border bg-gray-50 py-2.5 pl-11 pr-20 text-sm text-shifaa-ink placeholder:text-shifaa-muted focus:border-shifaa-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-shifaa-green/20 transition-all";
+    "w-full rounded-full border border-transparent bg-gray-100 py-2.5 pl-11 pr-20 text-sm text-shifaa-ink placeholder:text-shifaa-muted focus:border-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-200 transition-all";
 
   return (
     <div ref={ref} className="relative w-full">
