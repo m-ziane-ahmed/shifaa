@@ -197,7 +197,7 @@ export function Header() {
 
       {/* ── Navigation desktop ────────────────────────────── */}
       <nav className="hidden border-t border-shifaa-border md:block" aria-label="Navigation principale">
-        <div className="mx-auto flex max-w-7xl items-center px-4">
+        <div className="mx-auto flex max-w-7xl items-center px-4 overflow-x-auto">
 
           {/* ─ CATÉGORIES ─ */}
           <div onMouseEnter={() => openMega("categories")} onMouseLeave={closeMega} className="relative">
@@ -530,13 +530,14 @@ export function Header() {
             )}
           </div>
 
-          <Link href="/contact" className="px-4 py-3 text-sm font-medium text-shifaa-ink hover:text-shifaa-green transition-colors whitespace-nowrap">
+          <Link href="/contact" className="px-3 py-3 text-xs font-medium text-shifaa-ink hover:text-shifaa-green transition-colors whitespace-nowrap">
             Contact
           </Link>
-          <Link href="/a-propos" className="px-4 py-3 text-sm font-medium text-shifaa-ink hover:text-shifaa-green transition-colors whitespace-nowrap">
+          <Link href="/a-propos" className="px-3 py-3 text-xs font-medium text-shifaa-ink hover:text-shifaa-green transition-colors whitespace-nowrap">
             À propos
           </Link>
-          <Link href="/service-client" className="ml-auto px-4 py-3 text-sm font-semibold text-shifaa-green hover:text-shifaa-dark whitespace-nowrap">
+          <Link href="/service-client"
+            className="ml-auto px-3 py-3 text-xs font-semibold text-shifaa-green hover:text-shifaa-dark whitespace-nowrap">
             Aide
           </Link>
         </div>
