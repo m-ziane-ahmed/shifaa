@@ -30,7 +30,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white pb-safe md:hidden"
+      className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-400 bg-white pb-safe md:hidden"
       aria-label="Navigation principale mobile"
     >
       <div className="grid grid-cols-6">

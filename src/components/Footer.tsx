@@ -125,13 +125,7 @@ export function Footer() {
         </div>
 
         {/* Bas de footer */}
-        <div className="mt-12 border-t border-white/10 pt-8">
-          {/* Compliance */}
-          <p className="mb-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center text-xs text-white/50 leading-relaxed">
-            Shifaa est une boutique spécialisée en produits parapharmaceutiques — et non une pharmacie en ligne.
-            Nous commercialisons uniquement des produits entrant dans le périmètre autorisé (hygiène, soins,
-            certains compléments et accessoires). Aucun médicament soumis à prescription n&apos;est proposé à la vente.
-          </p>
+        <div className="mt-12 b order-t border-white/10 pt-8">
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
             <p className="text-xs text-white/40">
               © {new Date().getFullYear()} Shifaa — Parapharmacie en ligne. Tous droits réservés.

@@ -53,11 +53,11 @@ export function PromoCarousel() {
 
   return (
     <section className="relative overflow-hidden" aria-label="Bannières promotionnelles">
-      <div className={`relative bg-gradient-to-r ${banner.gradient} text-white transition-all duration-500`}>
+      <div className={`relative bg-gradient-to-r ${banner.gradient} text-dark transition-all duration-400`}>
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-14 md:px-6 md:py-20">
           <div className="max-w-xl">
-            <p className="text-sm font-medium uppercase tracking-widest text-white/80">
-              Shifaa · {index + 1}/{BANNERS.length}
+            <p className="text-sm font-medium uppercase tracking-widest text-shifaa-dark">
+              {index + 1}/{BANNERS.length}
             </p>
             <h2 className="mt-3 font-display text-3xl font-semibold leading-tight md:text-4xl">
               {banner.title}
@@ -71,7 +71,7 @@ export function PromoCarousel() {
             <button
               type="button"
               onClick={prev}
-              className="rounded-full bg-white/20 p-3 hover:bg-white/30"
+              className="rounded-full bg-gray/20 p-3 hover:bg-gray/30"
               aria-label="Bannière précédente"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -79,7 +79,7 @@ export function PromoCarousel() {
             <button
               type="button"
               onClick={next}
-              className="rounded-full bg-white/20 p-3 hover:bg-white/30"
+              className="rounded-full bg-gray/20 p-3 hover:bg-gray/30"
               aria-label="Bannière suivante"
             >
               <ChevronRight className="h-5 w-5" />
@@ -92,7 +92,7 @@ export function PromoCarousel() {
               key={b.id}
               type="button"
               onClick={() => setIndex(i)}
-              className={`h-2 rounded-full transition-all ${i === index ? "w-8 bg-white" : "w-2 bg-white/50"}`}
+              className={`h-2 rounded-full transition-all ${i === index ? "w-8 bg-gray" : "w-2 bg-gray/30"}`}
               aria-label={`Bannière ${i + 1}`}
             />
           ))}

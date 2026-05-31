@@ -14,7 +14,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <ComplianceBanner />
       <PromoCarousel />
 
       <section className="relative overflow-hidden">
