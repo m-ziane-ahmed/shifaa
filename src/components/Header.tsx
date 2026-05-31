@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import {
   ChevronDown, ChevronRight, Search, Menu, X,
   User, Phone, Mail, Sparkles, Tag, Bell, Zap,
-  FlaskConical, Award, BookOpen, Heart
+  FlaskConical, Award, BookOpen
 } from "lucide-react";
 import { CartBadge } from "@/components/CartBadge";
 import { ShifaaLogo } from "@/components/ShifaaLogo";
@@ -403,7 +403,7 @@ export function Header() {
             <button type="button" onClick={() => setActiveMega(activeMega === "besoins" ? null : "besoins")}
               className={`flex items-center gap-1 px-3 py-3 text-xs font-medium transition-colors whitespace-nowrap
                 ${activeMega === "besoins" ? "text-shifaa-green" : "text-shifaa-ink hover:text-shifaa-green"}`}>
-              <Heart className="h-3.5 w-3.5" />Mes besoins
+              Mes besoins
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "besoins" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "besoins" && (
@@ -436,7 +436,7 @@ export function Header() {
             <button type="button" onClick={() => setActiveMega(activeMega === "diagnostic" ? null : "diagnostic")}
               className={`flex items-center gap-1 px-3 py-3 text-xs font-medium transition-colors whitespace-nowrap
                 ${activeMega === "diagnostic" ? "text-purple-600" : "text-purple-600 hover:text-purple-700"}`}>
-              <FlaskConical className="h-3.5 w-3.5" />Diagnostic IA
+              Diagnostic
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "diagnostic" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "diagnostic" && (
@@ -467,7 +467,7 @@ export function Header() {
             <button type="button" onClick={() => setActiveMega(activeMega === "conseils" ? null : "conseils")}
               className={`flex items-center gap-1 px-3 py-3 text-xs font-medium transition-colors whitespace-nowrap
                 ${activeMega === "conseils" ? "text-shifaa-green" : "text-shifaa-ink hover:text-shifaa-green"}`}>
-              <BookOpen className="h-3.5 w-3.5" />Conseils & Expertise
+              Conseils & Expertise
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "conseils" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "conseils" && (
@@ -494,7 +494,7 @@ export function Header() {
             <button type="button" onClick={() => setActiveMega(activeMega === "fidelite" ? null : "fidelite")}
               className={`flex items-center gap-1 px-3 py-3 text-xs font-medium transition-colors whitespace-nowrap
                 ${activeMega === "fidelite" ? "text-amber-600" : "text-amber-600 hover:text-amber-700"}`}>
-              <Award className="h-3.5 w-3.5" />Fidélité
+              Fidélité
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "fidelite" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "fidelite" && (
@@ -656,12 +656,12 @@ export function Header() {
           </div>
 
           <Link href="/promotions" onClick={() => setMobileOpen(false)}
-            className="flex items-center justify-between py-3 text-sm font-medium text-red-600 border-b border-shifaa-border">
-            <span>Promotions</span><span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-bold">Promo</span>
+            className="flex items-center py-3 text-sm font-medium text-red-600 border-b border-shifaa-border">
+            Promotions
           </Link>
           <Link href="/nouveautes" onClick={() => setMobileOpen(false)}
-            className="flex items-center justify-between py-3 text-sm font-medium text-blue-600 border-b border-shifaa-border">
-            <span>Nouveautés</span><span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-bold">New</span>
+            className="flex items-center py-3 text-sm font-medium text-blue-600 border-b border-shifaa-border">
+            Nouveautés
           </Link>
           <Link href="/service-client" onClick={() => setMobileOpen(false)}
             className="block py-3 text-sm font-semibold text-shifaa-green">
