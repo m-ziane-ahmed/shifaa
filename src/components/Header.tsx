@@ -14,6 +14,7 @@ import { SocialLinks } from "@/components/SocialLinks";
 
 const NAV: Array<{ href: string; label: string; badge?: string }> = [
   { href: "/boutique", label: "Boutique" },
+  { href: "/diagnostic", label: "Diagnostic", badge: "IA" },
   { href: "/promotions", label: "Promotions", badge: "Promo" },
   { href: "/nouveautes", label: "Nouveautés", badge: "New" },
   { href: "/conseils", label: "Conseils" },

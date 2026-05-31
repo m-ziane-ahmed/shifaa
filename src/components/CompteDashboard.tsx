@@ -19,6 +19,7 @@ const QUICK_LINKS = [
   { href: "/compte/commandes", label: "Mes commandes", icon: ShoppingBag, color: "text-blue-500" },
   { href: "/compte/favoris", label: "Mes favoris", icon: Heart, color: "text-red-500" },
   { href: "/compte/routines", label: "Mes routines", icon: RefreshCw, color: "text-shifaa-green" },
+  { href: "/compte/fidelite", label: "Fidélité", icon: Award, color: "text-amber-500" },
   { href: "/compte/adresses", label: "Mes adresses", icon: MapPin, color: "text-green-500" },
   { href: "/compte/retours", label: "Retours", icon: RotateCcw, color: "text-orange-500" },
   { href: "/compte/moderation-avis", label: "Mes avis", icon: Star, color: "text-amber-500" },
