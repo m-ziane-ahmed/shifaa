@@ -530,12 +530,6 @@ export function Header() {
             )}
           </div>
 
-          <Link href="/contact" className="px-3 py-3 text-xs font-medium text-shifaa-ink hover:text-shifaa-green transition-colors whitespace-nowrap">
-            Contact
-          </Link>
-          <Link href="/a-propos" className="px-3 py-3 text-xs font-medium text-shifaa-ink hover:text-shifaa-green transition-colors whitespace-nowrap">
-            À propos
-          </Link>
           <Link href="/service-client"
             className="ml-auto px-3 py-3 text-xs font-semibold text-shifaa-green hover:text-shifaa-dark whitespace-nowrap">
             Aide
@@ -670,14 +664,6 @@ export function Header() {
           <Link href="/nouveautes" onClick={() => setMobileOpen(false)}
             className="flex items-center justify-between py-3 text-sm font-medium text-blue-600 border-b border-shifaa-border">
             <span>Nouveautés</span><span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-bold">New</span>
-          </Link>
-          <Link href="/contact" onClick={() => setMobileOpen(false)}
-            className="block py-3 text-sm font-medium text-shifaa-ink border-b border-shifaa-border hover:text-shifaa-green transition-colors">
-            Contact
-          </Link>
-          <Link href="/a-propos" onClick={() => setMobileOpen(false)}
-            className="block py-3 text-sm font-medium text-shifaa-ink border-b border-shifaa-border hover:text-shifaa-green transition-colors">
-            À propos
           </Link>
           <Link href="/service-client" onClick={() => setMobileOpen(false)}
             className="block py-3 text-sm font-semibold text-shifaa-green">
