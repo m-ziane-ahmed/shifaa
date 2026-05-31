@@ -29,7 +29,6 @@
     font-family: var(--font-roboto), "Roboto", system-ui, sans-serif;
     font-size: 15px;
     color: var(--color-gray);
-    overflow-x: hidden;
   }
 
   /* Sélection texte — vert primaire */
