@@ -9,7 +9,7 @@ export function CompareBadge() {
   return (
     <Link
       href="/comparateur"
-      className="relative rounded-full p-2 text-white hover:bg-white/10"
+      className="relative rounded-full p-2 text-shifaa-ink hover:bg-gray-100"
       aria-label="Comparateur"
     >
       <Scale className="h-5 w-5" />

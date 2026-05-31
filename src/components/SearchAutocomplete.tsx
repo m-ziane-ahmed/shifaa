@@ -221,7 +221,7 @@ export function SearchAutocomplete({ onSelect }: Props) {
   const hasHistory = history.length > 0;
 
   const inputClass =
-    "w-full rounded-full border border-white/20 bg-white/10 py-2.5 pl-11 pr-20 text-sm text-white placeholder:text-white/50 focus:border-shifaa-lime focus:bg-white/15 focus:outline-none focus:ring-2 focus:ring-shifaa-lime/50 transition-all";
+    "w-full rounded-full border border-shifaa-border bg-gray-50 py-2.5 pl-11 pr-20 text-sm text-shifaa-ink placeholder:text-shifaa-muted focus:border-shifaa-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-shifaa-green/20 transition-all";
 
   return (
     <div ref={ref} className="relative w-full">
@@ -230,7 +230,7 @@ export function SearchAutocomplete({ onSelect }: Props) {
         className="relative"
         role="search"
       >
-        <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/60" aria-hidden />
+        <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-shifaa-muted" aria-hidden />
         <input
           ref={inputRef}
           type="search"
@@ -249,7 +249,7 @@ export function SearchAutocomplete({ onSelect }: Props) {
           <button
             type="button"
             onClick={() => fileRef.current?.click()}
-            className="rounded-full p-1.5 text-white/50 hover:bg-white/10 hover:text-white transition-colors"
+            className="rounded-full p-1.5 text-shifaa-muted hover:bg-gray-100 hover:text-shifaa-ink transition-colors"
             aria-label="Recherche par image"
             title="Recherche par image"
           >
@@ -260,7 +260,7 @@ export function SearchAutocomplete({ onSelect }: Props) {
             <button
               type="button"
               onClick={clear}
-              className="rounded-full p-1.5 text-white/50 hover:text-white transition-colors"
+              className="rounded-full p-1.5 text-shifaa-muted hover:text-red-500 transition-colors"
               aria-label="Effacer"
             >
               <X className="h-4 w-4" />

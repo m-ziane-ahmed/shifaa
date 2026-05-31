@@ -29,6 +29,8 @@ const config: Config = {
           muted:   "#9b9b9b",
           // Bordures (prototype #eaeaea)
           border:  "#eaeaea",
+          // Fond page
+          page:    "#ffffff",
         },
       },
       fontFamily: {

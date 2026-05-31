@@ -26,11 +26,11 @@ type SocialLinksProps = {
 
 const linkVariants = {
   header:
-    "flex h-8 w-8 items-center justify-center rounded-full text-white/90 transition hover:bg-white/15 hover:text-shifaa-lime",
+    "flex h-8 w-8 items-center justify-center rounded-full text-shifaa-ink/70 transition hover:bg-gray-100 hover:text-shifaa-green",
   footer:
-    "flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/90 transition hover:bg-shifaa-lime/30 hover:text-shifaa-lime",
+    "flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/90 transition hover:bg-shifaa-green/30 hover:text-white",
   light:
-    "flex h-9 w-9 items-center justify-center rounded-full bg-shifaa-cream text-shifaa-header transition hover:bg-shifaa-lime/40 hover:text-shifaa-green",
+    "flex h-9 w-9 items-center justify-center rounded-full bg-shifaa-cream text-shifaa-ink transition hover:bg-shifaa-lime/40 hover:text-shifaa-green",
 };
 
 export function SocialLinks({ className, iconClassName = "h-4 w-4", variant = "header" }: SocialLinksProps) {

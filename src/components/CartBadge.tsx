@@ -8,7 +8,7 @@ export function CartBadge() {
     <button
       type="button"
       onClick={openDrawer}
-      className="relative rounded-full p-2 text-white hover:bg-white/10"
+      className="relative rounded-full p-2 text-shifaa-ink hover:bg-gray-100"
       aria-label="Panier"
     >
       <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
