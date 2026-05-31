@@ -197,7 +197,7 @@ export function Header() {
 
       {/* ── Navigation desktop ────────────────────────────── */}
       <nav className="hidden border-t border-shifaa-border md:block" aria-label="Navigation principale">
-        <div className="mx-auto flex max-w-7xl items-center px-4 overflow-x-auto">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4">
 
           {/* ─ CATÉGORIES ─ */}
           <div onMouseEnter={() => openMega("categories")} onMouseLeave={closeMega} className="relative">
@@ -467,7 +467,7 @@ export function Header() {
             <button type="button" onClick={() => setActiveMega(activeMega === "conseils" ? null : "conseils")}
               className={`flex items-center gap-1 px-3 py-3 text-xs font-medium transition-colors whitespace-nowrap
                 ${activeMega === "conseils" ? "text-shifaa-green" : "text-shifaa-ink hover:text-shifaa-green"}`}>
-              Conseils & Expertise
+              Conseils
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "conseils" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "conseils" && (
@@ -529,7 +529,7 @@ export function Header() {
           </div>
 
           <Link href="/service-client"
-            className="ml-auto px-3 py-3 text-xs font-semibold text-shifaa-green hover:text-shifaa-dark whitespace-nowrap">
+            className="px-3 py-3 text-xs font-semibold text-shifaa-green hover:text-shifaa-dark whitespace-nowrap">
             Aide
           </Link>
         </div>
