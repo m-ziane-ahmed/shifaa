@@ -5,6 +5,7 @@ import { PageLoader } from "@/components/PageLoader";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { BottomNav } from "@/components/BottomNav";
 import { PWAManager } from "@/components/PWAManager";
+import { HeaderOffset } from "@/components/HeaderOffset";
 
 export default function PublicLayout({
   children,
@@ -15,7 +16,7 @@ export default function PublicLayout({
     <div className="flex min-h-screen flex-col">
       <PageLoader />
       <Header />
-      <main className="flex-1 pb-16 md:pb-0">{children}</main>
+      <HeaderOffset>{children}</HeaderOffset>
       <Footer />
       <ScrollToTop />
       <BottomNav />

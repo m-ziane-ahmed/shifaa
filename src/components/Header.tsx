@@ -60,7 +60,7 @@ export function Header() {
   const activeCat = PRODUCT_CATS.find((c) => c.slug === activeTab);
 
   return (
-    <header className="sticky top-0 z-50 bg-white text-shifaa-ink shadow-sm border-b border-shifaa-border" style={{ willChange: 'transform' }}>
+    <header id="site-header" className="fixed top-0 left-0 right-0 z-50 bg-white text-shifaa-ink shadow-sm border-b border-shifaa-border">
       {/* Barre supérieure */}
       <div className="border-b border-shifaa-border px-4 py-2 bg-gray-50">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs md:justify-between md:text-sm text-shifaa-muted">
