@@ -15,7 +15,7 @@ export function CartBadge() {
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
       </svg>
       {count > 0 && (
-        <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-shifaa-lime px-1 text-[10px] font-bold text-shifaa-header">
+        <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-shifaa-green px-1 text-[10px] font-bold text-white">
           {count > 99 ? "99+" : count}
         </span>
       )}
