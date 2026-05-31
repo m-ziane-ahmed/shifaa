@@ -2,31 +2,182 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Variables CSS charte graphique prototype Shifaa ──── */
+:root {
+  --color-primary:   #4aab3d;
+  --color-primary-dark: #193a15;
+  --color-primary-hover: #3c9830;
+  --color-secondary: #1b1a1a;
+  --color-white:     #ffffff;
+  --color-gray:      #9b9b9b;
+  --color-border:    #eaeaea;
+  --color-bg:        #f9f9f9;
+  --color-heading:   #282828;
+
+  /* Transitions standard */
+  --transition: all 0.3s ease;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
     overflow-y: scroll;
   }
+
   body {
-    @apply bg-shifaa-cream text-shifaa-ink antialiased;
-    overflow-y: auto;
+    @apply bg-white text-shifaa-ink antialiased;
+    font-family: var(--font-roboto), "Roboto", system-ui, sans-serif;
+    font-size: 15px;
+    color: var(--color-gray);
+    overflow-x: hidden;
   }
+
+  /* Sélection texte — vert primaire */
+  ::selection {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  /* Liens */
+  a {
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+  }
+  a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: none;
+  }
+
+  /* Titres — Rubik */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-rubik), "Rubik", system-ui, sans-serif;
+    color: var(--color-heading);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.875rem; }
+  h3 { font-size: 1.5rem; }
+  h4 { font-size: 1.25rem; }
+
+  img {
+    max-width: 100%;
+  }
+
+  /* Bordures */
+  .border-top    { border-top: 1px solid var(--color-border) !important; }
+  .border-bottom { border-bottom: 1px solid var(--color-border) !important; }
 }
 
 @layer components {
+
+  /* ─── Bouton primaire (prototype btn__primary) ────────── */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-shifaa-green px-6 py-3 text-sm font-medium text-white transition hover:bg-shifaa-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shifaa-green;
+    @apply inline-flex items-center justify-center gap-2 rounded-md
+           bg-shifaa-green px-6 py-3 text-sm font-semibold text-white
+           transition-all duration-300;
+    font-family: var(--font-rubik), sans-serif;
+    letter-spacing: 0.02em;
   }
+  .btn-primary:hover {
+    background-color: var(--color-secondary);
+    color: #ffffff;
+  }
+  .btn-primary:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* ─── Bouton secondaire (prototype btn__secondary) ───── */
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-shifaa-border bg-white px-6 py-3 text-sm font-medium text-shifaa-ink transition hover:border-shifaa-green hover:text-shifaa-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shifaa-green;
+    @apply inline-flex items-center justify-center gap-2 rounded-md
+           border border-shifaa-border bg-white px-6 py-3 text-sm font-semibold
+           text-shifaa-ink transition-all duration-300;
+    font-family: var(--font-rubik), sans-serif;
   }
+  .btn-secondary:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  /* ─── Bouton outlined (prototype btn__outlined) ────────  */
+  .btn-outlined {
+    @apply inline-flex items-center justify-center gap-2 rounded-md
+           border-2 border-shifaa-green bg-transparent px-6 py-3
+           text-sm font-semibold text-shifaa-green transition-all duration-300;
+    font-family: var(--font-rubik), sans-serif;
+  }
+  .btn-outlined:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  /* ─── Card surface ─────────────────────────────────────  */
   .card-surface {
-    @apply rounded-2xl border border-shifaa-border bg-white shadow-card;
+    @apply rounded-xl border border-shifaa-border bg-white shadow-card;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
   }
+  .card-surface:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.10);
+  }
+
+  /* ─── Titres de section (prototype heading__subtitle / title) */
+  .section-subtitle {
+    display: block;
+    font-family: var(--font-rubik), sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+
   .section-title {
-    @apply font-display text-3xl font-semibold tracking-tight text-shifaa-ink md:text-4xl;
+    font-family: var(--font-rubik), sans-serif;
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    line-height: 1.3;
   }
+
+  /* ─── Prose (corps de texte) ───────────────────────────  */
   .prose-shifaa {
-    @apply text-shifaa-muted leading-relaxed;
+    color: var(--color-gray);
+    line-height: 1.8;
+    font-size: 15px;
+  }
+
+  /* ─── Divider line (prototype .divider__line) ──────────  */
+  .divider-line {
+    @apply my-4;
+    height: 1px;
+    background-color: var(--color-border);
+  }
+
+  /* ─── Badge primary (vert) ─────────────────────────────  */
+  .badge-primary {
+    @apply inline-block rounded-full px-3 py-1 text-xs font-semibold;
+    background-color: rgba(74, 171, 61, 0.12);
+    color: var(--color-primary);
+  }
+
+  /* ─── Form controls (prototype .form-control) ──────────  */
+  .form-control {
+    @apply w-full rounded-md border border-shifaa-border bg-white
+           px-4 py-2.5 text-sm text-shifaa-ink
+           transition-colors duration-200;
+    font-family: var(--font-roboto), sans-serif;
+  }
+  .form-control:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(74, 171, 61, 0.12);
+  }
+  .form-control::placeholder {
+    color: var(--color-gray);
+    font-size: 14px;
   }
 }

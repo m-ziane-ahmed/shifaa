@@ -1,17 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Outfit } from "next/font/google";
+import { Rubik, Roboto } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
 
-const outfit = Outfit({
+// ── Polices charte graphique prototype Shifaa ─────────────
+const rubik = Rubik({
   subsets: ["latin"],
-  variable: "--font-outfit",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-rubik",
   display: "swap",
 });
 
-const fraunces = Fraunces({
+const roboto = Roboto({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  weight: ["400", "500", "700"],
+  variable: "--font-roboto",
   display: "swap",
 });
 
@@ -34,7 +37,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#18534F",
+  themeColor: "#4aab3d",
 };
 
 export default function RootLayout({
@@ -43,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${outfit.variable} ${fraunces.variable}`}>
+    <html lang="fr" className={`${rubik.variable} ${roboto.variable}`}>
       <body className="font-sans min-h-screen flex flex-col">
         <Providers>
           {children}
