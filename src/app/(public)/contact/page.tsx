@@ -1,4 +1,5 @@
 import { PageHeader } from "@/components/PageHeader";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { ContactForm } from "@/components/ContactForm";
 import { SocialLinks } from "@/components/SocialLinks";
 import { SITE } from "@/lib/site";
@@ -8,6 +9,9 @@ export const metadata = { title: "Contact" };
 export default function ContactPage() {
   return (
     <>
+      <div className="mx-auto max-w-6xl px-4 pt-4 md:px-6">
+        <Breadcrumb items={[{ label: "Contact" }]} />
+      </div>
       <PageHeader
         title="Contact"
         description="Une question sur une commande, un produit ou la livraison ? Écrivez-nous."

@@ -64,7 +64,7 @@ export function Footer() {
 
           {/* Infos entreprise */}
           <div className="shrink-0 lg:max-w-xs">
-            <ShifaaLogo />
+            <ShifaaLogo variant="light" />
             <p className="mt-3 text-sm text-white/75 leading-relaxed">
               Boutique spécialisée en produits parapharmaceutiques en Algérie.
               Hygiène, soins, compléments autorisés et accessoires — dans le respect

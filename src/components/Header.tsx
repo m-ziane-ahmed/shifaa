@@ -202,7 +202,7 @@ export function Header() {
           {/* ─ CATÉGORIES ─ */}
           <div onMouseEnter={() => openMega("categories")} onMouseLeave={closeMega} className="relative">
             <button type="button" onClick={() => setActiveMega(activeMega === "categories" ? null : "categories")}
-              className={`flex items-center gap-1.5 px-4 py-3 text-sm font-semibold transition-colors
+              className={`flex items-center gap-1 px-3 py-3 text-xs font-semibold transition-colors
                 ${activeMega === "categories" ? "text-shifaa-green" : "text-shifaa-ink hover:text-shifaa-green"}`}>
               Catégories
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "categories" ? "rotate-180" : ""}`} />
@@ -330,7 +330,7 @@ export function Header() {
           {/* ─ MARQUES ─ */}
           <div onMouseEnter={() => openMega("marques")} onMouseLeave={closeMega} className="relative">
             <button type="button" onClick={() => setActiveMega(activeMega === "marques" ? null : "marques")}
-              className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium transition-colors
+              className={`flex items-center gap-1 px-3 py-3 text-xs font-medium transition-colors
                 ${activeMega === "marques" ? "text-shifaa-green" : "text-shifaa-ink hover:text-shifaa-green"}`}>
               Marques <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "marques" ? "rotate-180" : ""}`} />
             </button>
@@ -401,9 +401,9 @@ export function Header() {
           {/* ─ MES BESOINS ─ */}
           <div onMouseEnter={() => openMega("besoins")} onMouseLeave={closeMega} className="relative">
             <button type="button" onClick={() => setActiveMega(activeMega === "besoins" ? null : "besoins")}
-              className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap
+              className={`flex items-center gap-1 px-3 py-3 text-xs font-medium transition-colors whitespace-nowrap
                 ${activeMega === "besoins" ? "text-shifaa-green" : "text-shifaa-ink hover:text-shifaa-green"}`}>
-              <Heart className="h-4 w-4" />Mes besoins
+              <Heart className="h-3.5 w-3.5" />Mes besoins
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "besoins" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "besoins" && (
@@ -434,10 +434,9 @@ export function Header() {
           {/* ─ DIAGNOSTIC IA ─ */}
           <div onMouseEnter={() => openMega("diagnostic")} onMouseLeave={closeMega} className="relative">
             <button type="button" onClick={() => setActiveMega(activeMega === "diagnostic" ? null : "diagnostic")}
-              className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap
+              className={`flex items-center gap-1 px-3 py-3 text-xs font-medium transition-colors whitespace-nowrap
                 ${activeMega === "diagnostic" ? "text-purple-600" : "text-purple-600 hover:text-purple-700"}`}>
-              <FlaskConical className="h-4 w-4" />Diagnostic IA
-              <span className="rounded-full bg-purple-100 px-1.5 py-0.5 text-[10px] font-bold">IA</span>
+              <FlaskConical className="h-3.5 w-3.5" />Diagnostic IA
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "diagnostic" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "diagnostic" && (
@@ -466,9 +465,9 @@ export function Header() {
           {/* ─ CONSEILS & EXPERTISE ─ */}
           <div onMouseEnter={() => openMega("conseils")} onMouseLeave={closeMega} className="relative">
             <button type="button" onClick={() => setActiveMega(activeMega === "conseils" ? null : "conseils")}
-              className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap
+              className={`flex items-center gap-1 px-3 py-3 text-xs font-medium transition-colors whitespace-nowrap
                 ${activeMega === "conseils" ? "text-shifaa-green" : "text-shifaa-ink hover:text-shifaa-green"}`}>
-              <BookOpen className="h-4 w-4" />Conseils & Expertise
+              <BookOpen className="h-3.5 w-3.5" />Conseils & Expertise
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "conseils" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "conseils" && (
@@ -493,10 +492,9 @@ export function Header() {
           {/* ─ FIDÉLITÉ ─ */}
           <div onMouseEnter={() => openMega("fidelite")} onMouseLeave={closeMega} className="relative">
             <button type="button" onClick={() => setActiveMega(activeMega === "fidelite" ? null : "fidelite")}
-              className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap
+              className={`flex items-center gap-1 px-3 py-3 text-xs font-medium transition-colors whitespace-nowrap
                 ${activeMega === "fidelite" ? "text-amber-600" : "text-amber-600 hover:text-amber-700"}`}>
-              <Award className="h-4 w-4" />Fidélité
-              <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-700">VIP</span>
+              <Award className="h-3.5 w-3.5" />Fidélité
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "fidelite" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "fidelite" && (

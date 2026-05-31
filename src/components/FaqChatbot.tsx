@@ -91,7 +91,7 @@ export function FaqChatbot() {
       <button
         type="button"
         onClick={() => { setOpen(!open); if (!open) setPanel("main"); }}
-        className="fixed bottom-24 right-4 z-[45] flex h-14 w-14 items-center justify-center rounded-full bg-shifaa-green text-white shadow-lift transition hover:bg-shifaa-ink md:bottom-8"
+        className="fixed bottom-20 right-4 z-[45] flex h-14 w-14 items-center justify-center rounded-full bg-shifaa-green text-white shadow-lift transition hover:bg-shifaa-ink md:bottom-6"
         aria-label={open ? "Fermer l'assistant" : "Ouvrir l'assistant Shifaa"}
         aria-expanded={open}
       >
@@ -100,7 +100,7 @@ export function FaqChatbot() {
 
       {open && (
         <div
-          className="fixed bottom-44 right-4 z-[45] flex h-[min(580px,80vh)] w-[min(440px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-lift md:bottom-28"
+          className="fixed bottom-36 right-4 z-[45] flex h-[min(560px,calc(100vh-10rem))] w-[min(440px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-lift md:bottom-24"
           role="dialog"
           aria-label="Centre d'assistance Shifaa"
         >

@@ -21,7 +21,7 @@ export function ScrollToTop() {
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Retour en haut de la page"
-      className="fixed right-4 bottom-20 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-shifaa-dark/80 text-white shadow-lg backdrop-blur transition-all hover:bg-shifaa-green active:scale-95 md:bottom-6"
+      className="fixed right-4 bottom-40 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-shifaa-dark/80 text-white shadow-lg backdrop-blur transition-all hover:bg-shifaa-green active:scale-95 md:bottom-24"
     >
       <ChevronUp className="h-5 w-5" aria-hidden />
     </button>

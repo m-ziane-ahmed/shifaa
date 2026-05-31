@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useCompare } from "@/context/CompareContext";
 import { CATEGORY_LABELS } from "@/data/categories";
 import { formatDZD } from "@/lib/utils";
@@ -12,6 +13,9 @@ export default function ComparateurPage() {
 
   return (
     <>
+      <div className="mx-auto max-w-6xl px-4 pt-4 md:px-6">
+        <Breadcrumb items={[{ label: "Comparateur" }]} />
+      </div>
       <PageHeader
         title="Comparateur"
         description="Comparez jusqu'à 4 produits côte à côte"
