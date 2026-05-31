@@ -533,6 +533,9 @@ export function Header() {
           <Link href="/contact" className="px-4 py-3 text-sm font-medium text-shifaa-ink hover:text-shifaa-green transition-colors whitespace-nowrap">
             Contact
           </Link>
+          <Link href="/a-propos" className="px-4 py-3 text-sm font-medium text-shifaa-ink hover:text-shifaa-green transition-colors whitespace-nowrap">
+            À propos
+          </Link>
           <Link href="/service-client" className="ml-auto px-4 py-3 text-sm font-semibold text-shifaa-green hover:text-shifaa-dark whitespace-nowrap">
             Aide
           </Link>
@@ -670,6 +673,10 @@ export function Header() {
           <Link href="/contact" onClick={() => setMobileOpen(false)}
             className="block py-3 text-sm font-medium text-shifaa-ink border-b border-shifaa-border hover:text-shifaa-green transition-colors">
             Contact
+          </Link>
+          <Link href="/a-propos" onClick={() => setMobileOpen(false)}
+            className="block py-3 text-sm font-medium text-shifaa-ink border-b border-shifaa-border hover:text-shifaa-green transition-colors">
+            À propos
           </Link>
           <Link href="/service-client" onClick={() => setMobileOpen(false)}
             className="block py-3 text-sm font-semibold text-shifaa-green">
