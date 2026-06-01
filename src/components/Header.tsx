@@ -209,7 +209,7 @@ export function Header() {
             </button>
 
             {activeMega === "categories" && (
-              <div className="absolute left-0 top-full z-50 w-[960px] rounded-2xl border border-shifaa-border bg-white shadow-2xl overflow-hidden">
+              <div className="absolute left-0 top-full z-50 w-[960px] rounded-2xl border border-shifaa-border bg-white shadow-2xl overflow-hidden" style={{ maxHeight: "calc(100vh - 190px)", overflowY: "auto" }}>
                 <div className="flex">
                   {/* Col 1 — Catégories */}
                   <div className="w-52 shrink-0 border-r border-shifaa-border py-3 bg-gray-50">
@@ -335,7 +335,7 @@ export function Header() {
               Marques <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "marques" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "marques" && (
-              <div className="absolute left-0 top-full z-50 w-[640px] rounded-2xl border border-shifaa-border bg-white shadow-2xl overflow-hidden">
+              <div className="absolute left-0 top-full z-50 w-[640px] rounded-2xl border border-shifaa-border bg-white shadow-2xl overflow-hidden" style={{ maxHeight: "calc(100vh - 190px)", overflowY: "auto" }}>
                 <div className="flex">
                   {/* Top marques */}
                   <div className="w-56 border-r border-shifaa-border p-4 bg-gray-50">
@@ -407,7 +407,7 @@ export function Header() {
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "besoins" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "besoins" && (
-              <div className="absolute left-0 top-full z-50 w-[480px] rounded-2xl border border-shifaa-border bg-white shadow-2xl p-5">
+              <div className="absolute left-0 top-full z-50 w-[480px] rounded-2xl border border-shifaa-border bg-white shadow-2xl p-5" style={{ maxHeight: "calc(100vh - 190px)", overflowY: "auto" }}>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-shifaa-muted mb-3">
                   Je cherche un produit pour…
                 </p>
@@ -440,7 +440,7 @@ export function Header() {
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "diagnostic" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "diagnostic" && (
-              <div className="absolute left-0 top-full z-50 w-[500px] rounded-2xl border border-shifaa-border bg-white shadow-2xl overflow-hidden">
+              <div className="absolute left-0 top-full z-50 w-[500px] rounded-2xl border border-shifaa-border bg-white shadow-2xl overflow-hidden" style={{ maxHeight: "calc(100vh - 190px)", overflowY: "auto" }}>
                 <div className="bg-gradient-to-r from-purple-50 to-shifaa-lime/10 px-5 py-4 border-b border-shifaa-border">
                   <p className="font-semibold text-shifaa-ink">🧠 Diagnostic IA personnalisé</p>
                   <p className="text-xs text-shifaa-muted mt-0.5">Répondez à 4 questions — obtenez vos recommandations en 60 secondes</p>
@@ -471,7 +471,7 @@ export function Header() {
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "conseils" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "conseils" && (
-              <div className="absolute left-0 top-full z-50 w-[420px] rounded-2xl border border-shifaa-border bg-white shadow-2xl p-5">
+              <div className="absolute left-0 top-full z-50 w-[420px] rounded-2xl border border-shifaa-border bg-white shadow-2xl p-5" style={{ maxHeight: "calc(100vh - 190px)", overflowY: "auto" }}>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-shifaa-muted mb-3">Notre hub expert</p>
                 <div className="space-y-1.5">
                   {CONSEILS_ITEMS.map((c) => (
@@ -498,7 +498,7 @@ export function Header() {
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "fidelite" ? "rotate-180" : ""}`} />
             </button>
             {activeMega === "fidelite" && (
-              <div className="absolute right-0 top-full z-50 w-[380px] rounded-2xl border border-shifaa-border bg-white shadow-2xl overflow-hidden">
+              <div className="absolute right-0 top-full z-50 w-[380px] rounded-2xl border border-shifaa-border bg-white shadow-2xl overflow-hidden" style={{ maxHeight: "calc(100vh - 190px)", overflowY: "auto" }}>
                 <div className="bg-gradient-to-r from-amber-50 to-orange-50 px-5 py-4 border-b border-shifaa-border">
                   <p className="font-semibold text-shifaa-ink flex items-center gap-2">
                     <Award className="h-5 w-5 text-amber-500" />Programme Fidélité Shifaa
