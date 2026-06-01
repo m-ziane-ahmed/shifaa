@@ -70,17 +70,25 @@ export async function POST(req: NextRequest) {
     reference: reference ?? null,
   });
 
-  // Mettre à jour le solde
-  await supabase.rpc("increment_loyalty_points", {
+  // Mettre à jour le solde via RPC atomique
+  const { error: rpcError } = await supabase.rpc("increment_loyalty_points", {
     p_user_id: user.id,
     p_points: actionDef.points,
-  }).catch(() => {
-    // Fallback si la fonction RPC n'existe pas
-    return supabase.from("loyalty_points").upsert(
-      { user_id: user.id, points: actionDef.points, updated_at: new Date().toISOString() },
-      { onConflict: "user_id" }
-    );
   });
+
+  // Fallback si la fonction RPC échoue
+  if (rpcError) {
+    const { data: current } = await supabase
+      .from("loyalty_points")
+      .select("points")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    await supabase.from("loyalty_points").upsert({
+      user_id: user.id,
+      points: (current?.points ?? 0) + actionDef.points,
+      updated_at: new Date().toISOString(),
+    }, { onConflict: "user_id" });
+  }
 
   // Récupérer le nouveau solde
   const { data: pts } = await supabase
