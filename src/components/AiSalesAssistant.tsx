@@ -136,8 +136,14 @@ export function AiSalesAssistant() {
 
       {/* Fenêtre */}
       {open && (
-        <div className="fixed bottom-36 left-4 z-[45] flex flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-2xl"
-          style={{ height: "min(480px, calc(100svh - 9rem))", width: "min(400px, calc(100vw - 2rem))" }}>
+        <div className="fixed z-[45] flex flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-2xl"
+          style={{
+            bottom: "5rem",
+            left: "1rem",
+            width: "min(400px, calc(100vw - 2rem))",
+            maxHeight: "calc(100svh - 8rem)",
+            height: "480px",
+          }}>
 
           {/* Header */}
           <div className="shrink-0 bg-gradient-to-r from-shifaa-dark to-shifaa-green px-4 py-3 text-white">
