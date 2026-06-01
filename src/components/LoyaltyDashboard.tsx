@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { CheckCircle, Lock } from "lucide-react";
+import { CheckCircle, Lock, History } from "lucide-react";
 
 const LEVELS = [
   { slug: "decouverte", label: "Découverte", icon: "🌱", minPts: 0,    color: "border-gray-300 bg-gray-50",    textColor: "text-gray-600",    perks: ["Accès catalogue complet", "Support standard"] },
@@ -22,7 +23,18 @@ const MISSIONS = [
   { icon: "🏆", label: "5ème commande",     pts: 200, done: false },
 ];
 
+type Transaction = { id: string; points: number; reason: string; created_at: string };
+
 export function LoyaltyDashboard({ points = 0 }: { points: number }) {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  useEffect(() => {
+    fetch("/api/loyalty")
+      .then((r) => r.json())
+      .then((d) => setTransactions(d.transactions ?? []))
+      .catch(() => {});
+  }, []);
+
   const currentLevel = [...LEVELS].reverse().find((l) => points >= l.minPts) ?? LEVELS[0];
   const nextLevel = LEVELS.find((l) => l.minPts > points);
   const progress = nextLevel
@@ -125,6 +137,31 @@ export function LoyaltyDashboard({ points = 0 }: { points: number }) {
           Compléter votre profil pour débloquer des missions →
         </Link>
       </div>
+
+      {/* Historique transactions */}
+      {transactions.length > 0 && (
+        <div className="card-surface p-5">
+          <h3 className="font-semibold text-shifaa-ink mb-4 flex items-center gap-2">
+            <History className="h-4 w-4 text-shifaa-green" />
+            Historique des points
+          </h3>
+          <div className="space-y-2">
+            {transactions.map((tx) => (
+              <div key={tx.id} className="flex items-center justify-between py-2 border-b border-shifaa-border last:border-0">
+                <div>
+                  <p className="text-sm text-shifaa-ink">{tx.reason}</p>
+                  <p className="text-xs text-shifaa-muted">
+                    {new Date(tx.created_at).toLocaleDateString("fr-DZ", { day: "numeric", month: "long", year: "numeric" })}
+                  </p>
+                </div>
+                <span className={`text-sm font-bold ${tx.points > 0 ? "text-shifaa-green" : "text-red-500"}`}>
+                  {tx.points > 0 ? "+" : ""}{tx.points} pts
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

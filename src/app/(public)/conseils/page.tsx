@@ -175,7 +175,7 @@ export default async function ConseilsPage({
           </nav>
         )}
 
-        {/* FAQ */}
+        {/* FAQ enrichie */}
         <section className="mt-16 card-surface p-8">
           <h2 className="font-display text-2xl font-semibold">FAQ santé &amp; bien-être</h2>
           <p className="mt-2 text-sm text-shifaa-muted">
@@ -184,12 +184,32 @@ export default async function ConseilsPage({
           <dl className="mt-6 space-y-6">
             {[
               {
-                q: "Puis-je remplacer un traitement par un complément ?",
-                a: "Non. Les compléments alimentaires ne se substituent pas à un traitement médical ni à une alimentation équilibrée.",
+                q: "Quelle est la différence entre une parapharmacie et une pharmacie ?",
+                a: "Une pharmacie délivre des médicaments sur ou sans ordonnance et est dirigée par un pharmacien. Une parapharmacie propose des produits de santé, d'hygiène et de beauté non soumis à prescription (cosmétiques, compléments autorisés, dispositifs médicaux sans risque).",
+              },
+              {
+                q: "Puis-je remplacer un traitement par un complément alimentaire ?",
+                a: "Non. Les compléments alimentaires ne se substituent jamais à un traitement médical prescrit ni à une alimentation équilibrée. En cas de doute, consultez votre médecin avant toute supplémentation.",
+              },
+              {
+                q: "Comment choisir un produit de soin pour ma peau ?",
+                a: "Identifiez d'abord votre type de peau (normale, sèche, grasse, mixte, sensible) puis votre besoin principal. Privilégiez des produits testés dermatologiquement, sans allergènes si vous êtes sensible. Notre diagnostic IA gratuit peut vous orienter en 2 minutes.",
               },
               {
                 q: "Comment choisir un produit pour bébé ?",
-                a: "Privilégiez des formules adaptées à l'âge, sans parfum si la peau est sensible, et lisez toujours les précautions.",
+                a: "Privilégiez des formules spécifiquement conçues pour l'âge du bébé (0-3 mois, 3-12 mois), sans parfum ni alcool pour les peaux sensibles. Lisez toujours les précautions et l'âge minimal recommandé. Les huiles essentielles sont contre-indiquées avant 6 ans.",
+              },
+              {
+                q: "Les produits naturels et bio sont-ils toujours meilleurs ?",
+                a: "Pas nécessairement. 'Naturel' ne signifie pas sans risque — certains allergènes sont d'origine naturelle. 'Bio' garantit l'origine des ingrédients mais pas l'efficacité. L'essentiel est que la formule soit adaptée à votre type de peau et testée dermatologiquement.",
+              },
+              {
+                q: "Comment lire une liste d'ingrédients INCI ?",
+                a: "Les ingrédients sont listés du plus concentré au moins concentré. Les actifs clés figurent généralement dans les 10 premiers. Évitez les formules avec alcool (alcohol denat.) en tête de liste si vous avez la peau sèche. Les parfums (Parfum/Fragrance) peuvent être allergènes sur peau sensible.",
+              },
+              {
+                q: "Quelle est la date limite d'utilisation (DLU) ?",
+                a: "La DLU indique la date avant laquelle le produit doit être utilisé après ouverture. Elle est symbolisée par un pot ouvert avec un chiffre (ex : 12M = 12 mois après ouverture). Ne confondez pas avec la DLUO (durée de vie avant ouverture), indiquée sur les produits dont la durée de vie est inférieure à 30 mois.",
               },
             ].map((item) => (
               <div key={item.q} className="border-b border-shifaa-border pb-6 last:border-0 last:pb-0">
@@ -198,9 +218,39 @@ export default async function ConseilsPage({
               </div>
             ))}
           </dl>
-          <Link href="/service-client" className="mt-6 inline-block text-sm font-medium text-shifaa-green hover:underline">
-            Plus de questions → Service client
-          </Link>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/service-client" className="text-sm font-medium text-shifaa-green hover:underline">
+              Plus de questions → Service client
+            </Link>
+            <Link href="/diagnostic" className="text-sm font-medium text-shifaa-green hover:underline">
+              Diagnostic personnalisé gratuit →
+            </Link>
+          </div>
+        </section>
+
+        {/* Univers guides d'achat */}
+        <section className="mt-12">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="font-display text-2xl font-semibold text-shifaa-ink">Guides d&apos;achat par univers</h2>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { slug: "peau-seche", title: "Peau sèche", icon: "💧", desc: "Retrouver le confort et l'éclat", color: "bg-blue-50 border-blue-200" },
+              { slug: "peau-acneique", title: "Peau acnéique", icon: "🌿", desc: "Assainir sans agresser", color: "bg-emerald-50 border-emerald-200" },
+              { slug: "anti-age", title: "Anti-âge", icon: "✨", desc: "Prévenir et corriger en douceur", color: "bg-purple-50 border-purple-200" },
+              { slug: "bebe-naissance", title: "Bébé 0-6 mois", icon: "👶", desc: "Les essentiels du nourrisson", color: "bg-pink-50 border-pink-200" },
+              { slug: "cheveux-chute", title: "Chute de cheveux", icon: "💆", desc: "Comprendre et agir efficacement", color: "bg-amber-50 border-amber-200" },
+            ].map((u) => (
+              <Link key={u.slug} href={`/conseils/univers/${u.slug}`}
+                className={`flex items-center gap-3 rounded-2xl border p-4 transition hover:shadow-md ${u.color}`}>
+                <span className="text-3xl">{u.icon}</span>
+                <div>
+                  <p className="font-semibold text-shifaa-ink">{u.title}</p>
+                  <p className="text-xs text-shifaa-muted">{u.desc}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </section>
       </div>
     </>
