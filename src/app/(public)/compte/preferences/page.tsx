@@ -297,7 +297,7 @@ export default function PreferencesPage() {
         </div>
 
         {/* Bouton sauvegarder sticky */}
-        <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-shifaa-border bg-white px-4 py-3">
+        <div className="fixed bottom-16 left-0 right-0 z-40 border-t border-shifaa-border bg-white px-4 py-3 md:bottom-0">
           <div className="mx-auto flex max-w-3xl items-center justify-between gap-4">
             <Link href="/compte" className="text-sm text-shifaa-muted hover:text-shifaa-green">
               ← Mon compte
