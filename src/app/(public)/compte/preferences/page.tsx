@@ -8,8 +8,6 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import { useAuth } from "@/context/AuthContext";
 import { createClient } from "@/lib/supabase";
 
-const supabase = createClient();
-
 const SKIN_TYPES = ["Normale", "Sèche", "Grasse", "Mixte", "Sensible", "Acnéique", "Mature"];
 const HAIR_TYPES = ["Normaux", "Secs", "Gras", "Mixtes", "Fins", "Épais", "Frisés / bouclés"];
 const AGE_GROUPS = ["< 18 ans", "18–25 ans", "26–35 ans", "36–45 ans", "46–55 ans", "56 ans et +"];
@@ -68,6 +66,7 @@ export default function PreferencesPage() {
 
   useEffect(() => {
     if (!user) return;
+    const supabase = createClient();
     supabase.from("profiles")
       .select("skin_type,hair_type,age_group,gender,wellness_goals,preferred_delivery,preferred_payment,newsletter,sms_notif,push_notif")
       .eq("id", user.id)
@@ -89,6 +88,7 @@ export default function PreferencesPage() {
   async function save() {
     if (!user) return;
     setSaving(true);
+    const supabase = createClient();
     await supabase.from("profiles").update({
       skin_type: prefs.skin_type || null,
       hair_type: prefs.hair_type || null,

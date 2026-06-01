@@ -8,8 +8,6 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import { useAuth } from "@/context/AuthContext";
 import { createClient } from "@/lib/supabase";
 
-const supabase = createClient();
-
 const ROUTINE_TYPES = [
   { value: "visage", label: "Routine visage", icon: "🌸", href: "/boutique?categorie=visage-peau", color: "bg-pink-50 border-pink-200" },
   { value: "cheveux", label: "Routine cheveux", icon: "💇", href: "/boutique?categorie=cheveux", color: "bg-purple-50 border-purple-200" },
@@ -65,12 +63,14 @@ export default function RoutinesPage() {
 
   useEffect(() => {
     if (!user) return;
+    const supabase = createClient();
     supabase.from("routines").select("*").eq("user_id", user.id).order("created_at", { ascending: false })
       .then(({ data }) => setRoutines(data ?? []));
   }, [user]);
 
   async function createRoutine() {
     if (!user || !newName.trim()) return;
+    const supabase = createClient();
     const { data } = await supabase.from("routines").insert({
       user_id: user.id,
       name: newName.trim(),
@@ -83,6 +83,7 @@ export default function RoutinesPage() {
   }
 
   async function deleteRoutine(id: string) {
+    const supabase = createClient();
     await supabase.from("routines").delete().eq("id", id);
     setRoutines((prev) => prev.filter((r) => r.id !== id));
   }
@@ -212,6 +213,7 @@ export default function RoutinesPage() {
                     <button type="button"
                       onClick={async () => {
                         if (!user) return;
+                        const supabase = createClient();
                         const { data } = await supabase.from("routines").insert({
                           user_id: user.id,
                           name: routine.name,
