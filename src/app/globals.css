@@ -28,7 +28,7 @@
     @apply bg-white text-shifaa-ink antialiased;
     font-family: var(--font-roboto), "Roboto", system-ui, sans-serif;
     font-size: 15px;
-    color: var(--color-gray);
+    color: #1b1a1a;
   }
 
   /* Sélection texte — vert primaire */
@@ -60,8 +60,15 @@
   h3 { font-size: 1.5rem; }
   h4 { font-size: 1.25rem; }
 
-  img {
-    max-width: 100%;
+  /* ─── Inputs, selects, textareas — texte noir lisible ── */
+  input, select, textarea {
+    color: #1b1a1a;
+  }
+  input::placeholder, textarea::placeholder {
+    color: #9b9b9b;
+  }
+  option {
+    color: #1b1a1a;
   }
 
   /* Bordures */

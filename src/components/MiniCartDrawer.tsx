@@ -7,9 +7,13 @@ import { useCart } from "@/context/CartContext";
 import { useCartTotals } from "@/hooks/useCartTotals";
 import { formatDZD } from "@/lib/utils";
 
+const FREE_DELIVERY_THRESHOLD = 8000;
+
 export function MiniCartDrawer() {
   const { items, drawerOpen, closeDrawer, updateQuantity, removeItem } = useCart();
   const { subtotal, discount, delivery, total } = useCartTotals();
+  const remaining = Math.max(0, FREE_DELIVERY_THRESHOLD - subtotal);
+  const progressPct = Math.min(100, Math.round((subtotal / FREE_DELIVERY_THRESHOLD) * 100));
 
   if (!drawerOpen) return null;
 
@@ -33,6 +37,32 @@ export function MiniCartDrawer() {
         </div>
 
         <div className="flex-1 overflow-y-auto p-4">
+          {/* Barre livraison gratuite */}
+          {items.length > 0 && (
+            <div className={`mb-4 rounded-xl border p-3 text-xs ${
+              remaining === 0
+                ? "border-emerald-200 bg-emerald-50"
+                : "border-amber-200 bg-amber-50"
+            }`}>
+              {remaining === 0 ? (
+                <p className="flex items-center gap-1.5 font-semibold text-emerald-700">
+                  🎉 Livraison offerte ! Vous avez atteint le seuil de 8 000 DZD.
+                </p>
+              ) : (
+                <>
+                  <p className="text-amber-700 mb-1.5">
+                    Plus que <span className="font-bold">{formatDZD(remaining)}</span> pour la livraison gratuite
+                  </p>
+                  <div className="h-1.5 w-full rounded-full bg-amber-200 overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-amber-500 transition-all duration-500"
+                      style={{ width: `${progressPct}%` }}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+          )}
           {items.length === 0 ? (
             <p className="py-8 text-center text-sm text-shifaa-muted">Panier vide</p>
           ) : (

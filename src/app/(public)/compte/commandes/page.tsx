@@ -47,7 +47,7 @@ export default function CommandesPage() {
                     {new Date(o.createdAt).toLocaleDateString("fr-DZ")} ·{" "}
                     {WILAYAS.find((w) => w.code === o.wilaya)?.name ?? o.wilaya}
                   </p>
-                  <p className="mt-2 text-sm">{o.items.length} article(s) · {formatDZD(o.total)}</p>
+                  <p className="mt-2 text-sm">{(o.items ?? []).length} article(s) · {formatDZD(o.total)}</p>
                   <span className="mt-2 inline-block text-sm font-medium text-shifaa-green">
                     Voir le détail →
                   </span>

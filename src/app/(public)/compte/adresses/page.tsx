@@ -73,18 +73,40 @@ export default function AdressesPage() {
           ))}
         </ul>
         <form onSubmit={handleSubmit} className="card-surface mt-8 space-y-4 p-6">
-          <h2 className="font-semibold">Ajouter une adresse</h2>
-          <input placeholder="Libellé" value={label} onChange={(e) => setLabel(e.target.value)} className="w-full rounded-xl border border-shifaa-border px-3 py-2 text-sm" />
-          <select value={wilaya} required onChange={(e) => setWilaya(e.target.value)} className="w-full rounded-xl border border-shifaa-border px-3 py-2 text-sm">
-            <option value="">Wilaya</option>
-            {WILAYAS.map((w) => (
-              <option key={w.code} value={w.code}>{w.name}</option>
-            ))}
-          </select>
-          <input placeholder="Commune" required value={commune} onChange={(e) => setCommune(e.target.value)} className="w-full rounded-xl border border-shifaa-border px-3 py-2 text-sm" />
-          <textarea placeholder="Adresse" required value={address} onChange={(e) => setAddress(e.target.value)} className="w-full rounded-xl border border-shifaa-border px-3 py-2 text-sm" />
-          <input placeholder="Téléphone" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full rounded-xl border border-shifaa-border px-3 py-2 text-sm" />
-          <button type="submit" className="btn-primary">Enregistrer</button>
+          <h2 className="font-semibold text-shifaa-ink">Ajouter une adresse</h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="mb-1 block text-xs font-medium text-shifaa-ink">Libellé</label>
+              <input placeholder="Ex : Domicile" value={label} onChange={(e) => setLabel(e.target.value)}
+                className="w-full rounded-xl border border-shifaa-border bg-white px-3 py-2.5 text-sm text-shifaa-ink placeholder:text-shifaa-muted focus:border-shifaa-green focus:outline-none focus:ring-2 focus:ring-shifaa-green/20" />
+            </div>
+            <div>
+              <label className="mb-1 block text-xs font-medium text-shifaa-ink">Téléphone</label>
+              <input placeholder="Ex : 0550 000 000" value={phone} onChange={(e) => setPhone(e.target.value)}
+                className="w-full rounded-xl border border-shifaa-border bg-white px-3 py-2.5 text-sm text-shifaa-ink placeholder:text-shifaa-muted focus:border-shifaa-green focus:outline-none focus:ring-2 focus:ring-shifaa-green/20" />
+            </div>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-shifaa-ink">Wilaya *</label>
+            <select required value={wilaya} onChange={(e) => setWilaya(e.target.value)}
+              className="w-full rounded-xl border border-shifaa-border bg-white px-3 py-2.5 text-sm text-shifaa-ink focus:border-shifaa-green focus:outline-none focus:ring-2 focus:ring-shifaa-green/20">
+              <option value="">Sélectionnez une wilaya</option>
+              {WILAYAS.map((w) => (
+                <option key={w.code} value={w.code}>{w.name}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-shifaa-ink">Commune *</label>
+            <input required placeholder="Ex : Bab Ezzouar" value={commune} onChange={(e) => setCommune(e.target.value)}
+              className="w-full rounded-xl border border-shifaa-border bg-white px-3 py-2.5 text-sm text-shifaa-ink placeholder:text-shifaa-muted focus:border-shifaa-green focus:outline-none focus:ring-2 focus:ring-shifaa-green/20" />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-shifaa-ink">Adresse complète *</label>
+            <textarea required placeholder="N° rue, quartier, bâtiment…" value={address} onChange={(e) => setAddress(e.target.value)} rows={3}
+              className="w-full rounded-xl border border-shifaa-border bg-white px-3 py-2.5 text-sm text-shifaa-ink placeholder:text-shifaa-muted focus:border-shifaa-green focus:outline-none focus:ring-2 focus:ring-shifaa-green/20 resize-none" />
+          </div>
+          <button type="submit" className="btn-primary w-full">Enregistrer l&apos;adresse</button>
         </form>
       </div>
     </>
