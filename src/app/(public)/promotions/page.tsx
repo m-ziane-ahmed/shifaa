@@ -1,8 +1,10 @@
 import { Suspense } from "react";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { ProductCard } from "@/components/ProductCard";
 import { CatalogPagination } from "@/components/CatalogPagination";
 import { CatalogFilters } from "@/components/CatalogFilters";
+import { SortBar } from "@/components/SortBar";
+import { ActiveFilterChips } from "@/components/ActiveFilterChips";
+import { ProductCard } from "@/components/ProductCard";
 import { getProducts } from "@/lib/products-db";
 import Link from "next/link";
 import { Tag } from "lucide-react";
@@ -77,6 +79,18 @@ export default async function PromotionsPage({
                 Offres limitées
               </span>
             </div>
+
+            {/* SortBar + filtres actifs */}
+            <Suspense fallback={null}>
+              <ActiveFilterChips basePath="/promotions" />
+            </Suspense>
+            <Suspense fallback={<div className="h-14 rounded-xl bg-white animate-pulse mb-4" />}>
+              <SortBar
+                total={total}
+                currentPage={currentPage}
+                totalPages={totalPages}
+              />
+            </Suspense>
 
             {/* Grille */}
             <Suspense fallback={

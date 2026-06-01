@@ -218,11 +218,11 @@ export function Header() {
                       <button key={cat.slug} type="button"
                         onMouseEnter={() => setActiveCatTab(cat.slug)}
                         onClick={() => setActiveMega(null)}
-                        className={`flex w-full items-center gap-2.5 px-4 py-2.5 text-sm transition-colors
+                        className={`flex w-full items-center gap-2 px-3 py-2 text-xs transition-colors
                           ${activeCatTab === cat.slug ? "bg-white text-shifaa-green font-semibold border-r-2 border-shifaa-green" : "text-shifaa-ink hover:bg-white hover:text-shifaa-green"}`}>
-                        <span className="text-base">{cat.icon}</span>
+                        <span className="text-sm">{cat.icon}</span>
                         <span className="flex-1 truncate">{cat.label}</span>
-                        <ChevronRight className="h-3.5 w-3.5 text-shifaa-muted shrink-0" />
+                        <ChevronRight className="h-3 w-3 text-shifaa-muted shrink-0" />
                       </button>
                     ))}
                     <div className="mx-4 my-2 border-t border-shifaa-border" />
@@ -249,11 +249,11 @@ export function Header() {
                         {activeCat.subcategories && activeCat.subcategories.length > 0 && (
                           <div className="grid grid-cols-2 gap-1 mb-4">
                             {activeCat.subcategories.map((sub) => (
-                              <Link key={sub.slug} href={sub.href} onClick={() => setActiveMega(null)}
-                                className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-shifaa-ink hover:bg-gray-50 hover:text-shifaa-green transition-colors">
-                                <span className="text-base">{sub.icon}</span>
-                                <span className="font-medium truncate">{sub.label}</span>
-                              </Link>
+                            <Link key={sub.slug} href={sub.href} onClick={() => setActiveMega(null)}
+                            className="flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-xs text-shifaa-ink hover:bg-gray-50 hover:text-shifaa-green transition-colors">
+                            <span className="text-sm">{sub.icon}</span>
+                            <span className="font-medium truncate">{sub.label}</span>
+                            </Link>
                             ))}
                           </div>
                         )}
@@ -279,8 +279,8 @@ export function Header() {
                     <p className="text-[10px] font-bold uppercase tracking-widest text-shifaa-muted mb-3">Top produits</p>
                     {(popularProducts ?? []).map((p) => (
                       <Link key={p.label} href={p.href} onClick={() => setActiveMega(null)}
-                        className="flex flex-col rounded-xl p-2 hover:bg-gray-50 transition-colors group mb-1">
-                        <span className="text-xs font-semibold text-shifaa-ink group-hover:text-shifaa-green truncate">{p.label}</span>
+                        className="flex flex-col rounded-xl p-1.5 hover:bg-gray-50 transition-colors group mb-0.5">
+                        <span className="text-[11px] font-semibold text-shifaa-ink group-hover:text-shifaa-green truncate">{p.label}</span>
                         <span className="text-[10px] text-shifaa-muted">{p.brand}</span>
                       </Link>
                     ))}
@@ -341,11 +341,11 @@ export function Header() {
                   <div className="w-56 border-r border-shifaa-border p-4 bg-gray-50">
                     <p className="text-[10px] font-bold uppercase tracking-widest text-shifaa-muted mb-3">Top marques</p>
                     {MARQUES_TOP.map((m) => (
-                      <Link key={m.label} href={m.href} onClick={() => setActiveMega(null)}
-                        className="flex flex-col rounded-xl px-3 py-2.5 hover:bg-white hover:text-shifaa-green transition-colors group mb-0.5">
-                        <span className="text-sm font-semibold text-shifaa-ink group-hover:text-shifaa-green">{m.label}</span>
-                        <span className="text-xs text-shifaa-muted">{m.desc}</span>
-                      </Link>
+                    <Link key={m.label} href={m.href} onClick={() => setActiveMega(null)}
+                    className="flex flex-col rounded-xl px-2.5 py-2 hover:bg-white hover:text-shifaa-green transition-colors group mb-0.5">
+                    <span className="text-xs font-semibold text-shifaa-ink group-hover:text-shifaa-green">{m.label}</span>
+                    <span className="text-[10px] text-shifaa-muted">{m.desc}</span>
+                    </Link>
                     ))}
                     <div className="mt-3 pt-3 border-t border-shifaa-border">
                       <Link href="/boutique?view=marques" onClick={() => setActiveMega(null)}
@@ -413,11 +413,11 @@ export function Header() {
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                   {BESOINS.map((b) => (
-                    <Link key={b.slug} href={b.href} onClick={() => setActiveMega(null)}
-                      className="flex items-center gap-3 rounded-xl border border-shifaa-border px-3 py-3 hover:border-shifaa-green hover:bg-shifaa-lime/10 transition-colors group">
-                      <span className="text-xl">{b.icon}</span>
-                      <span className="text-sm font-medium text-shifaa-ink group-hover:text-shifaa-green">{b.label}</span>
-                    </Link>
+                  <Link key={b.slug} href={b.href} onClick={() => setActiveMega(null)}
+                  className="flex items-center gap-2 rounded-xl border border-shifaa-border px-2.5 py-2 hover:border-shifaa-green hover:bg-shifaa-lime/10 transition-colors group">
+                  <span className="text-base">{b.icon}</span>
+                  <span className="text-xs font-medium text-shifaa-ink group-hover:text-shifaa-green">{b.label}</span>
+                  </Link>
                   ))}
                 </div>
                 <div className="mt-4 pt-3 border-t border-shifaa-border">
@@ -448,13 +448,13 @@ export function Header() {
                 <div className="p-4 grid grid-cols-1 gap-2">
                   {DIAGNOSTICS.map((d) => (
                     <Link key={d.href} href={d.href} onClick={() => setActiveMega(null)}
-                      className="flex items-center gap-3 rounded-xl border border-shifaa-border px-4 py-3 hover:border-shifaa-green hover:bg-shifaa-lime/10 transition-colors group">
-                      <span className="text-2xl">{d.icon}</span>
+                      className="flex items-center gap-2.5 rounded-xl border border-shifaa-border px-3 py-2.5 hover:border-shifaa-green hover:bg-shifaa-lime/10 transition-colors group">
+                      <span className="text-xl">{d.icon}</span>
                       <div>
-                        <p className="text-sm font-semibold text-shifaa-ink group-hover:text-shifaa-green">{d.label}</p>
-                        <p className="text-xs text-shifaa-muted">{d.sub}</p>
+                        <p className="text-xs font-semibold text-shifaa-ink group-hover:text-shifaa-green">{d.label}</p>
+                        <p className="text-[10px] text-shifaa-muted">{d.sub}</p>
                       </div>
-                      <ChevronRight className="h-4 w-4 text-shifaa-muted ml-auto shrink-0" />
+                      <ChevronRight className="h-3.5 w-3.5 text-shifaa-muted ml-auto shrink-0" />
                     </Link>
                   ))}
                 </div>
@@ -476,11 +476,11 @@ export function Header() {
                 <div className="space-y-1.5">
                   {CONSEILS_ITEMS.map((c) => (
                     <Link key={c.href} href={c.href} onClick={() => setActiveMega(null)}
-                      className="flex items-center gap-3 rounded-xl px-3 py-2.5 hover:bg-gray-50 hover:text-shifaa-green transition-colors group">
-                      <span className="text-xl">{c.icon}</span>
+                      className="flex items-center gap-2.5 rounded-xl px-3 py-2 hover:bg-gray-50 hover:text-shifaa-green transition-colors group">
+                      <span className="text-lg">{c.icon}</span>
                       <div>
-                        <p className="text-sm font-semibold text-shifaa-ink group-hover:text-shifaa-green">{c.label}</p>
-                        <p className="text-xs text-shifaa-muted">{c.sub}</p>
+                        <p className="text-xs font-semibold text-shifaa-ink group-hover:text-shifaa-green">{c.label}</p>
+                        <p className="text-[10px] text-shifaa-muted">{c.sub}</p>
                       </div>
                     </Link>
                   ))}
@@ -508,11 +508,11 @@ export function Header() {
                 <div className="p-4 space-y-1.5">
                   {FIDELITE_ITEMS.map((f) => (
                     <Link key={f.href} href={f.href} onClick={() => setActiveMega(null)}
-                      className="flex items-center gap-3 rounded-xl px-3 py-2.5 hover:bg-amber-50 transition-colors group">
-                      <span className="text-xl">{f.icon}</span>
+                      className="flex items-center gap-2.5 rounded-xl px-3 py-2 hover:bg-amber-50 transition-colors group">
+                      <span className="text-lg">{f.icon}</span>
                       <div>
-                        <p className="text-sm font-semibold text-shifaa-ink group-hover:text-amber-700">{f.label}</p>
-                        <p className="text-xs text-shifaa-muted">{f.sub}</p>
+                        <p className="text-xs font-semibold text-shifaa-ink group-hover:text-amber-700">{f.label}</p>
+                        <p className="text-[10px] text-shifaa-muted">{f.sub}</p>
                       </div>
                     </Link>
                   ))}
