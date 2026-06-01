@@ -123,7 +123,7 @@ export function AiSalesAssistant() {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="fixed bottom-20 left-4 z-[45] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-shifaa-green to-shifaa-dark text-white shadow-lift transition hover:scale-105 md:bottom-6"
+        className="fixed bottom-20 left-4 z-[45] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-shifaa-green to-shifaa-dark text-white shadow-lift transition hover:scale-105 md:bottom-8"
         aria-label="Conseillère IA Sana"
       >
         {open ? <X className="h-6 w-6" /> : <Sparkles className="h-6 w-6" />}
@@ -136,7 +136,7 @@ export function AiSalesAssistant() {
 
       {/* Fenêtre */}
       {open && (
-        <div className="fixed bottom-36 left-4 z-[45] flex h-[min(580px,calc(100vh-10rem))] w-[min(400px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-2xl md:bottom-24">
+        <div className="fixed bottom-36 left-4 z-[45] flex h-[min(500px,calc(100svh-14rem))] w-[min(400px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-2xl md:bottom-28 md:h-[520px]">
 
           {/* Header */}
           <div className="shrink-0 bg-gradient-to-r from-shifaa-dark to-shifaa-green px-4 py-3 text-white">
