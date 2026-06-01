@@ -25,9 +25,9 @@ type PastOrder = {
 export function ReorderWidget() {
   const [orders, setOrders] = useState<PastOrder[]>([]);
   const [loading, setLoading] = useState(true);
-  const supabase = createClient();
 
   const load = useCallback(async () => {
+    const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { setLoading(false); return; }
 
@@ -40,7 +40,7 @@ export function ReorderWidget() {
 
     if (data) setOrders(data);
     setLoading(false);
-  }, [supabase]);
+  }, []);
 
   useEffect(() => { load(); }, [load]);
 

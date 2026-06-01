@@ -31,7 +31,6 @@ export function SubscribeButton({ product, compact = false }: Props) {
   const [frequency, setFrequency] = useState("monthly");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const supabase = createClient();
 
   const selectedFreq = FREQUENCIES.find((f) => f.value === frequency)!;
   const discountedPrice = product.price * (1 - selectedFreq.discount / 100);
@@ -39,6 +38,7 @@ export function SubscribeButton({ product, compact = false }: Props) {
   async function subscribe() {
     setLoading(true);
     try {
+      const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         window.location.href = "/compte/inscription?redirect=/produit/" + product.slug;
