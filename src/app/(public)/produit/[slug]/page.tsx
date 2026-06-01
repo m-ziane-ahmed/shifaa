@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Star, Truck, Shield, Clock, Package, BarChart3, Share2 } from "lucide-react";
+import { Star, Truck, Shield, Clock, Package, BarChart3 } from "lucide-react";
 import { ComplianceBanner } from "@/components/ComplianceBanner";
 import { AddToCartButton, ProductStickyBar } from "@/components/AddToCartButton";
 import { ProductGallery } from "@/components/ProductGallery";
@@ -14,6 +14,7 @@ import { ProductTabs } from "@/components/ProductTabs";
 import { UrgencyBadge, DeliveryEstimate } from "@/components/UrgencyBadge";
 import { SubscribeButton } from "@/components/SubscribeButton";
 import { ProductConfidenceScore } from "@/components/ProductConfidenceScore";
+import { ShareButton } from "@/components/ShareButton";
 import { AiRecommendations } from "@/components/ReorderWidget";
 import { getProductBySlug, getRelatedProducts, getComplementaryProducts } from "@/lib/products-db";
 import { WILAYAS } from "@/data/wilayas";
@@ -213,20 +214,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             {/* Actions secondaires */}
             <div className="flex flex-wrap gap-2">
               <WhatsAppProductButton name={product.name} price={product.price} slug={product.slug} />
-              <button
-                type="button"
-                onClick={() => {
-                  if (typeof window !== "undefined") {
-                    const url = window.location.href;
-                    if (navigator.share) navigator.share({ title: product.name, url });
-                    else navigator.clipboard.writeText(url);
-                  }
-                }}
-                className="btn-secondary flex items-center gap-2 py-2 text-sm"
-              >
-                <Share2 className="h-4 w-4" />
-                Partager
-              </button>
+              <ShareButton name={product.name} />
             </div>
 
             {/* Alerte retour stock */}
