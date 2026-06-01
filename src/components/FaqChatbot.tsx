@@ -100,7 +100,8 @@ export function FaqChatbot() {
 
       {open && (
         <div
-          className="fixed bottom-36 right-4 z-[45] flex h-[min(500px,calc(100svh-14rem))] w-[min(440px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-lift md:bottom-28 md:h-[520px]"
+          className="fixed bottom-36 right-4 z-[45] flex flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-lift"
+          style={{ height: "min(480px, calc(100svh - 9rem))", width: "min(440px, calc(100vw - 2rem))" }}
           role="dialog"
           aria-label="Centre d'assistance Shifaa"
         >
