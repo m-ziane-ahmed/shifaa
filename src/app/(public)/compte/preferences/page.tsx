@@ -106,6 +106,17 @@ export default function PreferencesPage() {
       sms_notif: prefs.sms_notif,
       push_notif: prefs.push_notif,
     }).eq("id", user.id);
+
+    // +50 points fidélité si profil bien rempli (au moins 3 champs remplis)
+    const filled = [prefs.skin_type, prefs.hair_type, prefs.age_group, prefs.gender].filter(Boolean).length;
+    if (filled >= 3) {
+      fetch("/api/loyalty", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "profile_complete" }),
+      }).catch(() => {});
+    }
+
     setSaving(false);
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
