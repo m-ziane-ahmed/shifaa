@@ -72,16 +72,21 @@ export default function PreferencesPage() {
       .eq("id", user.id)
       .maybeSingle()
       .then(({ data, error }) => {
-        if (!error && data) setPrefs({ ...DEFAULT, ...data });
+        if (!error && data) setPrefs({
+          ...DEFAULT,
+          ...data,
+          wellness_goals: data.wellness_goals ?? [],
+        });
       });
   }, [user]);
 
   function toggleGoal(goal: string) {
+    const goals = prefs.wellness_goals ?? [];
     setPrefs((p) => ({
       ...p,
-      wellness_goals: p.wellness_goals.includes(goal)
-        ? p.wellness_goals.filter((g) => g !== goal)
-        : [...p.wellness_goals, goal],
+      wellness_goals: goals.includes(goal)
+        ? goals.filter((g) => g !== goal)
+        : [...goals, goal],
     }));
   }
 
@@ -213,10 +218,10 @@ export default function PreferencesPage() {
               {WELLNESS_GOALS.map((goal) => (
                 <button key={goal} type="button" onClick={() => toggleGoal(goal)}
                   className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all flex items-center gap-1
-                    ${prefs.wellness_goals.includes(goal)
+                    ${(prefs.wellness_goals ?? []).includes(goal)
                       ? "border-shifaa-green bg-shifaa-lime/20 text-shifaa-green"
                       : "border-shifaa-border text-shifaa-muted hover:border-shifaa-green"}`}>
-                  {prefs.wellness_goals.includes(goal) && <Check className="h-3 w-3" />}
+                  {(prefs.wellness_goals ?? []).includes(goal) && <Check className="h-3 w-3" />}
                   {goal}
                 </button>
               ))}
