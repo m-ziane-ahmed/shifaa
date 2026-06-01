@@ -7,7 +7,6 @@ import { WishlistProvider } from "@/context/WishlistContext";
 import { CompareProvider } from "@/context/CompareContext";
 import { SearchProvider } from "@/context/SearchContext";
 import { MiniCartDrawer } from "@/components/MiniCartDrawer";
-import { FaqChatbot } from "@/components/FaqChatbot";
 import { PwaRegister } from "@/components/PwaRegister";
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -20,7 +19,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <ToastProvider>
               {children}
               <MiniCartDrawer />
-              <FaqChatbot />
               <PwaRegister />
             </ToastProvider>
             </SearchProvider>
