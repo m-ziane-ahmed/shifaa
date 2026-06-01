@@ -92,7 +92,7 @@ export default async function NouveautesPage({
 
             {/* SortBar + filtres actifs */}
             <Suspense fallback={null}>
-              <ActiveFilterChips basePath="/nouveautes" />
+              <ActiveFilterChips />
             </Suspense>
             <Suspense fallback={<div className="h-14 rounded-xl bg-white animate-pulse mb-4" />}>
               <SortBar

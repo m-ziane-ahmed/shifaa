@@ -82,7 +82,7 @@ export default async function PromotionsPage({
 
             {/* SortBar + filtres actifs */}
             <Suspense fallback={null}>
-              <ActiveFilterChips basePath="/promotions" />
+              <ActiveFilterChips />
             </Suspense>
             <Suspense fallback={<div className="h-14 rounded-xl bg-white animate-pulse mb-4" />}>
               <SortBar
