@@ -98,14 +98,23 @@ export function FaqChatbot() {
         {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
       </button>
 
+      {/* Overlay transparent quand ouvert */}
       {open && (
         <div
-          className="fixed z-[45] flex flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-lift"
+          className="fixed inset-0 z-[44] bg-black/10 backdrop-blur-[1px]"
+          onClick={() => { setOpen(false); setPanel("main"); }}
+        />
+      )}
+
+      {open && (
+        <div
+          className="fixed z-[45] flex flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white"
           style={{
-            top: "180px",
+            top: "190px",
             bottom: "88px",
             right: "1rem",
-            width: "min(440px, calc(50vw - 2rem))",
+            width: "min(420px, calc(50vw - 1.5rem))",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10)",
           }}
           role="dialog"
           aria-label="Centre d'assistance Shifaa"

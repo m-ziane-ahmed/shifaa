@@ -134,14 +134,23 @@ export function AiSalesAssistant() {
         )}
       </button>
 
+      {/* Overlay transparent quand ouvert */}
+      {open && (
+        <div
+          className="fixed inset-0 z-[44] bg-black/10 backdrop-blur-[1px]"
+          onClick={() => setOpen(false)}
+        />
+      )}
+
       {/* Fenêtre — ancrée entre le header et les boutons */}
       {open && (
-        <div className="fixed z-[45] flex flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-2xl"
+        <div className="fixed z-[45] flex flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white"
           style={{
-            top: "180px",
+            top: "190px",
             bottom: "88px",
             left: "1rem",
-            width: "min(400px, calc(50vw - 2rem))",
+            width: "min(380px, calc(50vw - 1.5rem))",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10)",
           }}>
 
           {/* Header */}
