@@ -15,7 +15,34 @@ export async function GET() {
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 
-  return NextResponse.json({ orders: orders ?? [] });
+  // Mapper snake_case → camelCase pour le front
+  const mapped = (orders ?? []).map((o) => ({
+    id: o.id,
+    userId: o.user_id,
+    status: o.status,
+    paymentStatus: o.payment_status,
+    payment: o.payment,
+    total: o.total,
+    subtotal: o.subtotal,
+    discount: o.discount,
+    delivery: o.delivery,
+    wilaya: o.wilaya,
+    commune: o.commune,
+    address: o.address,
+    deliveryMode: o.delivery_mode,
+    createdAt: o.created_at,
+    items: (o.order_items ?? []).map((i: Record<string, unknown>) => ({
+      productId: i.product_id,
+      slug: i.slug,
+      name: i.name,
+      brand: i.brand,
+      price: i.price,
+      quantity: i.quantity,
+      image: i.image,
+    })),
+  }));
+
+  return NextResponse.json({ orders: mapped });
 }
 
 export async function POST(request: Request) {
