@@ -19,6 +19,12 @@ export async function POST(request: Request) {
     });
 
     if (error) {
+      if (error.message.includes("Email not confirmed")) {
+        return NextResponse.json(
+          { error: "Votre email n'est pas encore confirmé. Vérifiez votre boîte mail ou contactez-nous." },
+          { status: 401 }
+        );
+      }
       return NextResponse.json(
         { error: "Identifiants incorrects." },
         { status: 401 }
