@@ -389,12 +389,12 @@ export function Header() {
           </div>
 
           {/* ─ PROMOTIONS ─ */}
-          <Link href="/promotions" className="flex items-center px-3 py-3 text-xs font-medium text-red-600 hover:text-red-700 transition-colors whitespace-nowrap">
+          <Link href="/promotions" className="flex items-center px-3 py-3 text-xs font-medium text-shifaa-ink hover:text-shifaa-green transition-colors whitespace-nowrap">
             Promotions
           </Link>
 
           {/* ─ NOUVEAUTÉS ─ */}
-          <Link href="/nouveautes" className="flex items-center px-3 py-3 text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors whitespace-nowrap">
+          <Link href="/nouveautes" className="flex items-center px-3 py-3 text-xs font-medium text-shifaa-ink hover:text-shifaa-green transition-colors whitespace-nowrap">
             Nouveautés
           </Link>
 
@@ -435,7 +435,7 @@ export function Header() {
           <div onMouseEnter={() => openMega("diagnostic")} onMouseLeave={closeMega} className="relative">
             <button type="button" onClick={() => setActiveMega(activeMega === "diagnostic" ? null : "diagnostic")}
               className={`flex items-center gap-1 px-3 py-3 text-xs font-medium transition-colors whitespace-nowrap
-                ${activeMega === "diagnostic" ? "text-purple-600" : "text-purple-600 hover:text-purple-700"}`}>
+                ${activeMega === "diagnostic" ? "text-shifaa-green" : "text-shifaa-ink hover:text-shifaa-green"}`}>
               Diagnostic
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "diagnostic" ? "rotate-180" : ""}`} />
             </button>
@@ -493,7 +493,7 @@ export function Header() {
           <div onMouseEnter={() => openMega("fidelite")} onMouseLeave={closeMega} className="relative">
             <button type="button" onClick={() => setActiveMega(activeMega === "fidelite" ? null : "fidelite")}
               className={`flex items-center gap-1 px-3 py-3 text-xs font-medium transition-colors whitespace-nowrap
-                ${activeMega === "fidelite" ? "text-amber-600" : "text-amber-600 hover:text-amber-700"}`}>
+                ${activeMega === "fidelite" ? "text-shifaa-green" : "text-shifaa-ink hover:text-shifaa-green"}`}>
               Fidélité
               <ChevronDown className={`h-4 w-4 transition-transform ${activeMega === "fidelite" ? "rotate-180" : ""}`} />
             </button>

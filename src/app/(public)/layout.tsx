@@ -6,6 +6,8 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { BottomNav } from "@/components/BottomNav";
 import { PWAManager } from "@/components/PWAManager";
 import { HeaderOffset } from "@/components/HeaderOffset";
+import { FaqChatbot } from "@/components/FaqChatbot";
+import { AiSalesAssistant } from "@/components/AiSalesAssistant";
 
 export default function PublicLayout({
   children,
@@ -20,6 +22,8 @@ export default function PublicLayout({
       <Footer />
       <ScrollToTop />
       <BottomNav />
+      <FaqChatbot />
+      <AiSalesAssistant />
       <PWAManager />
       <CookieConsent />
     </div>
