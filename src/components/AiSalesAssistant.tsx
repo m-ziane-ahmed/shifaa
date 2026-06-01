@@ -114,13 +114,6 @@ export function AiSalesAssistant() {
     setInput("");
   }
 
-  // Calculer la hauteur disponible au-dessus du bouton
-  const btnBottomPx = 80; // bottom-20 = 5rem = 80px
-  const availableHeight = typeof window !== "undefined"
-    ? window.innerHeight - btnBottomPx - 72 - 16  // hauteur dispo - bouton - gap
-    : 480;
-  const windowHeight = Math.min(480, Math.max(300, availableHeight));
-
   // Guard admin — après tous les hooks
   if (pathname.startsWith("/admin")) return null;
 

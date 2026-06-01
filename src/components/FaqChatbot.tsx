@@ -85,12 +85,6 @@ export function FaqChatbot() {
   // Masquer sur admin
   if (pathname.startsWith("/admin")) return null;
 
-  const btnBottomPx = 80;
-  const availableHeight = typeof window !== "undefined"
-    ? window.innerHeight - btnBottomPx - 72 - 16
-    : 480;
-  const windowHeight = Math.min(480, Math.max(300, availableHeight));
-
   return (
     <>
       {/* Bouton flottant */}
