@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
@@ -37,7 +38,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const supabase = createClient();
+
+  // Stable ref — createClient() une seule fois, jamais recréé
+  const supabaseRef = useRef(createClient());
+  const supabase = supabaseRef.current;
 
   const refresh = useCallback(async () => {
     const { data: { user: u } } = await supabase.auth.getUser();
