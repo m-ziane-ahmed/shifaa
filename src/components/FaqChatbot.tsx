@@ -85,6 +85,12 @@ export function FaqChatbot() {
   // Masquer sur admin
   if (pathname.startsWith("/admin")) return null;
 
+  const btnBottomPx = 80;
+  const availableHeight = typeof window !== "undefined"
+    ? window.innerHeight - btnBottomPx - 72 - 16
+    : 480;
+  const windowHeight = Math.min(480, Math.max(300, availableHeight));
+
   return (
     <>
       {/* Bouton flottant */}
@@ -102,11 +108,10 @@ export function FaqChatbot() {
         <div
           className="fixed z-[45] flex flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-lift"
           style={{
-            bottom: "5rem",
+            top: "140px",
+            bottom: "88px",
             right: "1rem",
             width: "min(440px, calc(100vw - 2rem))",
-            maxHeight: "calc(100svh - 8rem)",
-            height: "480px",
           }}
           role="dialog"
           aria-label="Centre d'assistance Shifaa"

@@ -114,6 +114,13 @@ export function AiSalesAssistant() {
     setInput("");
   }
 
+  // Calculer la hauteur disponible au-dessus du bouton
+  const btnBottomPx = 80; // bottom-20 = 5rem = 80px
+  const availableHeight = typeof window !== "undefined"
+    ? window.innerHeight - btnBottomPx - 72 - 16  // hauteur dispo - bouton - gap
+    : 480;
+  const windowHeight = Math.min(480, Math.max(300, availableHeight));
+
   // Guard admin — après tous les hooks
   if (pathname.startsWith("/admin")) return null;
 
@@ -134,15 +141,14 @@ export function AiSalesAssistant() {
         )}
       </button>
 
-      {/* Fenêtre */}
+      {/* Fenêtre — ancrée entre le header et les boutons */}
       {open && (
         <div className="fixed z-[45] flex flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-2xl"
           style={{
-            bottom: "5rem",
+            top: "140px",
+            bottom: "88px",
             left: "1rem",
             width: "min(400px, calc(100vw - 2rem))",
-            maxHeight: "calc(100svh - 8rem)",
-            height: "480px",
           }}>
 
           {/* Header */}
