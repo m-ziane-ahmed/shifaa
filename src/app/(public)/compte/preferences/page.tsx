@@ -70,9 +70,9 @@ export default function PreferencesPage() {
     supabase.from("profiles")
       .select("skin_type,hair_type,age_group,gender,wellness_goals,preferred_delivery,preferred_payment,newsletter,sms_notif,push_notif")
       .eq("id", user.id)
-      .single()
-      .then(({ data }) => {
-        if (data) setPrefs({ ...DEFAULT, ...data });
+      .maybeSingle()
+      .then(({ data, error }) => {
+        if (!error && data) setPrefs({ ...DEFAULT, ...data });
       });
   }, [user]);
 
