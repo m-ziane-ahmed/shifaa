@@ -102,10 +102,10 @@ export function FaqChatbot() {
         <div
           className="fixed z-[45] flex flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-lift"
           style={{
-            top: "140px",
+            top: "180px",
             bottom: "88px",
             right: "1rem",
-            width: "min(440px, calc(100vw - 2rem))",
+            width: "min(440px, calc(50vw - 2rem))",
           }}
           role="dialog"
           aria-label="Centre d'assistance Shifaa"

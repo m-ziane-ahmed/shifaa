@@ -138,10 +138,10 @@ export function AiSalesAssistant() {
       {open && (
         <div className="fixed z-[45] flex flex-col overflow-hidden rounded-2xl border border-shifaa-border bg-white shadow-2xl"
           style={{
-            top: "140px",
+            top: "180px",
             bottom: "88px",
             left: "1rem",
-            width: "min(400px, calc(100vw - 2rem))",
+            width: "min(400px, calc(50vw - 2rem))",
           }}>
 
           {/* Header */}
