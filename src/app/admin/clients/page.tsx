@@ -1,29 +1,8 @@
 import { createAdminClient } from "@/lib/supabase-server";
-import { revalidatePath } from "next/cache";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Clients | Admin Shifaa" };
-
-async function addLoyaltyPoints(userId: string, points: number) {
-  "use server";
-  const supabase = createAdminClient();
-  await supabase.rpc("add_loyalty_points", { user_id: userId, points });
-  revalidatePath("/admin/clients");
-}
-
-async function bulkAddPoints(points: number) {
-  "use server";
-  const supabase = createAdminClient();
-  await supabase.from("profiles")
-    .update({ loyalty_points: supabase.rpc("add_loyalty_points" as never) })
-    .eq("role", "user");
-  // Simple update direct
-  const { data: profiles } = await supabase.from("profiles").select("id").eq("role", "user");
-  for (const p of profiles ?? []) {
-    await supabase.rpc("add_loyalty_points", { user_id: p.id, points });
-  }
-  revalidatePath("/admin/clients");
-}
 
 export default async function AdminClients({
   searchParams,
@@ -33,21 +12,16 @@ export default async function AdminClients({
   const params = await searchParams;
   const supabase = createAdminClient();
   const page = Number(params.page ?? 1);
-  const pageSize = 20;
+  const pageSize = 25;
 
-  // Jointure auth.users pour l'email via une vue
   let query = supabase
     .from("profiles")
-    .select(`
-      id, name, phone, loyalty_points, role, created_at,
-      orders(count)
-    `, { count: "exact" })
+    .select("id, name, phone, created_at", { count: "exact" })
     .eq("role", "user")
     .order("created_at", { ascending: false })
     .range((page - 1) * pageSize, page * pageSize - 1);
 
   if (params.q) query = query.ilike("name", `%${params.q}%`);
-  if (params.segment === "vip") query = query.gte("loyalty_points", 1000);
   if (params.segment === "new") {
     const lastWeek = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
     query = query.gte("created_at", lastWeek);
@@ -56,114 +30,135 @@ export default async function AdminClients({
   const { data: clients, count } = await query;
   const totalPages = Math.ceil((count ?? 0) / pageSize);
 
+  // Stats globales clients
+  const { data: allProfiles } = await supabase.from("profiles").select("created_at").eq("role", "user");
+  const thisMonth = new Date();
+  thisMonth.setDate(1);
+  const newThisMonth = (allProfiles ?? []).filter((p) => new Date(p.created_at) >= thisMonth).length;
+
+  // Points fidélité depuis loyalty_points
+  const { data: loyaltyData } = await supabase
+    .from("loyalty_points")
+    .select("user_id, points")
+    .order("points", { ascending: false })
+    .limit(pageSize);
+
+  const loyaltyMap = Object.fromEntries((loyaltyData ?? []).map((l) => [l.user_id, l.points]));
+
   return (
     <div>
+      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Clients</h1>
-          <p className="text-sm text-gray-500 mt-1">{count} client(s) enregistré(s)</p>
+          <h1 className="text-2xl font-bold text-gray-900">Clients</h1>
+          <p className="text-sm text-gray-400 mt-0.5">
+            {count ?? 0} inscrits · {newThisMonth} nouveaux ce mois
+          </p>
         </div>
-        <a
-          href="/api/admin/export/clients"
-          className="border border-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-50 transition-colors"
-        >
+        <a href="/api/admin/export/clients"
+          className="flex items-center gap-1.5 px-4 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition">
           ⬇ Export CSV
         </a>
       </div>
 
-      {/* Bulk points */}
-      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
-        <h2 className="font-medium text-gray-800 mb-3">Actions en masse</h2>
-        <form className="flex items-center gap-3"
-          action={async (fd: FormData) => {
-            "use server";
-            await bulkAddPoints(Number(fd.get("points")));
-          }}>
-          <input name="points" type="number" min={1} defaultValue={100} placeholder="Points à ajouter"
-            className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-44 focus:outline-none focus:ring-2 focus:ring-[#18534F]/30" />
-          <button type="submit"
-            className="bg-[#18534F] text-white px-4 py-2 rounded-lg text-sm hover:bg-[#0f3d3a] transition-colors">
-            ⭐ Ajouter points à tous
-          </button>
-        </form>
+      {/* KPIs */}
+      <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="bg-white rounded-2xl border border-gray-200 p-4">
+          <p className="text-2xl font-bold text-gray-900">{(count ?? 0).toLocaleString()}</p>
+          <p className="text-xs text-gray-400 mt-0.5">Clients totaux</p>
+        </div>
+        <div className="bg-white rounded-2xl border border-green-100 bg-green-50 p-4">
+          <p className="text-2xl font-bold text-green-700">{newThisMonth}</p>
+          <p className="text-xs text-green-500 mt-0.5">Nouveaux ce mois</p>
+        </div>
+        <div className="bg-white rounded-2xl border border-amber-100 bg-amber-50 p-4">
+          <p className="text-2xl font-bold text-amber-700">
+            {(loyaltyData ?? []).filter((l) => l.points >= 100).length}
+          </p>
+          <p className="text-xs text-amber-500 mt-0.5">Avec points fidélité</p>
+        </div>
       </div>
 
-      {/* Filtres & segments */}
-      <div className="bg-white rounded-xl border border-gray-200 p-4 mb-4">
-        <form className="flex gap-3 flex-wrap">
-          <input name="q" defaultValue={params.q} placeholder="Rechercher par nom..."
-            className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm flex-1 min-w-48 focus:outline-none focus:ring-2 focus:ring-[#18534F]/30" />
-          <div className="flex gap-2">
-            {[
-              { value: "", label: "Tous" },
-              { value: "vip", label: "VIP (≥1000 pts)" },
-              { value: "new", label: "Nouveaux (7j)" },
-            ].map((seg) => (
-              <a key={seg.value} href={`?segment=${seg.value}`}
-                className={`px-3 py-1.5 rounded-lg text-sm border transition-colors
-                  ${(params.segment ?? "") === seg.value
-                    ? "bg-[#18534F] text-white border-transparent"
-                    : "border-gray-200 text-gray-600 hover:bg-gray-50"}`}>
-                {seg.label}
-              </a>
-            ))}
-          </div>
-          <button type="submit" className="bg-gray-100 text-gray-700 px-4 py-1.5 rounded-lg text-sm hover:bg-gray-200 transition-colors">
-            Rechercher
-          </button>
+      {/* Filtres */}
+      <div className="flex flex-wrap gap-3 mb-4">
+        <form className="flex-1 min-w-48">
+          {params.segment && <input type="hidden" name="segment" value={params.segment} />}
+          <input name="q" defaultValue={params.q}
+            placeholder="Rechercher par nom…"
+            className="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-shifaa-green/30" />
         </form>
+        <div className="flex gap-2">
+          {[
+            { value: "", label: "Tous" },
+            { value: "new", label: "Nouveaux (7j)" },
+          ].map((seg) => (
+            <Link key={seg.value} href={`?segment=${seg.value}`}
+              className={`px-3 py-2 rounded-xl text-sm font-medium border transition-all
+                ${(params.segment ?? "") === seg.value
+                  ? "bg-shifaa-green text-white border-shifaa-green"
+                  : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"}`}>
+              {seg.label}
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
         <table className="w-full text-sm">
-          <thead className="bg-gray-50 text-xs text-gray-500 uppercase tracking-wide">
+          <thead className="bg-gray-50 border-b border-gray-100">
             <tr>
-              <th className="px-4 py-3 text-left">Client</th>
-              <th className="px-4 py-3 text-left">Téléphone</th>
-              <th className="px-4 py-3 text-center">Commandes</th>
-              <th className="px-4 py-3 text-center">Points fidélité</th>
-              <th className="px-4 py-3 text-left">Inscrit le</th>
-              <th className="px-4 py-3 text-center">Actions</th>
+              {["Client", "Téléphone", "Points fidélité", "Inscrit le", ""].map((h) => (
+                <th key={h} className="px-4 py-3 text-left text-xs font-medium text-gray-500">{h}</th>
+              ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
-            {(clients ?? []).map((c) => {
-              const orderCount = (c.orders as { count: number }[])?.[0]?.count ?? 0;
-              const isVip = c.loyalty_points >= 1000;
+          <tbody className="divide-y divide-gray-50">
+            {(clients ?? []).length === 0 ? (
+              <tr>
+                <td colSpan={5} className="px-4 py-10 text-center text-gray-400">Aucun client trouvé</td>
+              </tr>
+            ) : (clients ?? []).map((c) => {
+              const pts = loyaltyMap[c.id] ?? 0;
+              const isVip = pts >= 500;
+              const initials = ((c.name || "?").split(" ").map((n: string) => n[0]).join("") || "?").slice(0, 2).toUpperCase();
               return (
-                <tr key={c.id} className="hover:bg-gray-50">
+                <tr key={c.id} className="hover:bg-gray-50 transition">
                   <td className="px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <div className="h-8 w-8 rounded-full bg-[#18534F]/10 flex items-center justify-center text-xs font-medium text-[#18534F]">
-                        {(c.name || "?")[0].toUpperCase()}
+                    <div className="flex items-center gap-3">
+                      <div className={`h-9 w-9 rounded-full flex items-center justify-center text-xs font-bold shrink-0
+                        ${isVip ? "bg-amber-100 text-amber-700" : "bg-shifaa-green/10 text-shifaa-green"}`}>
+                        {initials}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-800">{c.name || "—"}</p>
-                        {isVip && <span className="text-xs text-amber-600 font-medium">⭐ VIP</span>}
+                        <p className="font-medium text-gray-900">{c.name || "—"}</p>
+                        {isVip && <span className="text-[10px] text-amber-600 font-bold">⭐ VIP</span>}
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-gray-500">{c.phone ?? "—"}</td>
-                  <td className="px-4 py-3 text-center">{orderCount}</td>
-                  <td className="px-4 py-3 text-center">
-                    <span className={`font-medium ${isVip ? "text-amber-600" : "text-gray-600"}`}>
-                      {c.loyalty_points} pts
-                    </span>
+                  <td className="px-4 py-3 text-gray-500 text-xs">{c.phone ?? "—"}</td>
+                  <td className="px-4 py-3">
+                    {pts > 0 ? (
+                      <div className="flex items-center gap-2">
+                        <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="h-full bg-amber-400 rounded-full" style={{ width: `${Math.min(100, pts / 10)}%` }} />
+                        </div>
+                        <span className={`text-xs font-semibold ${isVip ? "text-amber-600" : "text-gray-600"}`}>
+                          {pts} pts
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-xs text-gray-300">0 pts</span>
+                    )}
                   </td>
-                  <td className="px-4 py-3 text-gray-400 text-xs">
-                    {new Date(c.created_at).toLocaleDateString("fr-DZ")}
+                  <td className="px-4 py-3 text-xs text-gray-400">
+                    {new Date(c.created_at).toLocaleDateString("fr-DZ", { day: "numeric", month: "short", year: "numeric" })}
                   </td>
-                  <td className="px-4 py-3 text-center">
-                    <form className="inline-flex items-center gap-1"
-                      action={async (fd: FormData) => {
-                        "use server";
-                        await addLoyaltyPoints(c.id, Number(fd.get("pts")));
-                      }}>
-                      <input name="pts" type="number" defaultValue={50} min={1}
-                        className="w-16 border border-gray-200 rounded px-1.5 py-0.5 text-xs text-center focus:outline-none" />
-                      <button type="submit" className="text-xs text-[#18534F] hover:underline">+pts</button>
-                    </form>
+                  <td className="px-4 py-3">
+                    <Link href={`/admin/commandes?q=${encodeURIComponent(c.name ?? "")}`}
+                      className="text-xs text-shifaa-green hover:underline">
+                      Commandes →
+                    </Link>
                   </td>
                 </tr>
               );
@@ -171,13 +166,17 @@ export default async function AdminClients({
           </tbody>
         </table>
         {totalPages > 1 && (
-          <div className="px-4 py-3 border-t border-gray-100 flex items-center justify-between text-sm text-gray-500">
-            <span>Page {page} / {totalPages}</span>
+          <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100">
+            <p className="text-xs text-gray-400">Page {page} / {totalPages}</p>
             <div className="flex gap-2">
-              {page > 1 && <a href={`?page=${page - 1}&segment=${params.segment ?? ""}&q=${params.q ?? ""}`}
-                className="px-3 py-1 border border-gray-200 rounded-lg hover:bg-gray-50">← Précédent</a>}
-              {page < totalPages && <a href={`?page=${page + 1}&segment=${params.segment ?? ""}&q=${params.q ?? ""}`}
-                className="px-3 py-1 border border-gray-200 rounded-lg hover:bg-gray-50">Suivant →</a>}
+              {page > 1 && (
+                <Link href={`?page=${page - 1}&segment=${params.segment ?? ""}&q=${params.q ?? ""}`}
+                  className="px-3 py-1.5 border border-gray-200 rounded-lg text-xs hover:bg-gray-50">← Précédent</Link>
+              )}
+              {page < totalPages && (
+                <Link href={`?page=${page + 1}&segment=${params.segment ?? ""}&q=${params.q ?? ""}`}
+                  className="px-3 py-1.5 border border-gray-200 rounded-lg text-xs hover:bg-gray-50">Suivant →</Link>
+              )}
             </div>
           </div>
         )}
