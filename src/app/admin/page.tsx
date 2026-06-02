@@ -10,12 +10,13 @@ export default async function AdminDashboard() {
 
   // Stats parallèles
   const [
-    { data: statsRpc },
     { data: recentOrders },
     { data: topProducts },
     { data: stockAlerts },
+    { data: ordersData },
+    { data: profilesCount },
+    { data: productsCount },
   ] = await Promise.all([
-    supabase.rpc("admin_dashboard_stats"),
     supabase.from("orders")
       .select("id, total, status, payment, wilaya, created_at, guest_name")
       .order("created_at", { ascending: false }).limit(8),
@@ -25,9 +26,28 @@ export default async function AdminDashboard() {
     supabase.from("stock_alerts")
       .select("alert_type, products(name)")
       .eq("is_resolved", false).limit(5),
+    supabase.from("orders").select("total, status, created_at"),
+    supabase.from("profiles").select("id", { count: "exact" }).eq("role", "user"),
+    supabase.from("products").select("id", { count: "exact" }).eq("is_active", true),
   ]);
 
-  const s = (statsRpc as Record<string, number>) ?? {};
+  // Calculer les stats
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  const allOrders = ordersData ?? [];
+  const s = {
+    total_orders: allOrders.length,
+    total_revenue: allOrders.filter((o) => o.status !== "cancelled").reduce((a, o) => a + o.total, 0),
+    revenue_today: allOrders.filter((o) => o.status !== "cancelled" && new Date(o.created_at) >= todayStart).reduce((a, o) => a + o.total, 0),
+    revenue_this_month: allOrders.filter((o) => o.status !== "cancelled" && new Date(o.created_at) >= monthStart).reduce((a, o) => a + o.total, 0),
+    total_customers: profilesCount ?? 0,
+    total_products: productsCount ?? 0,
+    pending_orders: allOrders.filter((o) => o.status === "pending").length,
+    shipped_orders: allOrders.filter((o) => o.status === "shipped").length,
+    delivered_orders: allOrders.filter((o) => o.status === "delivered").length,
+  };
 
   const STATUS_CONFIG: Record<string, { label: string; color: string; dot: string }> = {
     pending:   { label: "En attente",  color: "bg-amber-100 text-amber-800",  dot: "bg-amber-400" },
