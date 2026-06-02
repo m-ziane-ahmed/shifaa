@@ -33,7 +33,8 @@ export default async function AdminCommandeDetail({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
+  const { id: rawId } = await params;
+  const id = decodeURIComponent(rawId);
   const supabase = createAdminClient();
 
   const { data: order } = await supabase
