@@ -45,6 +45,15 @@ const NAV_GROUPS = [
     ],
   },
   {
+    label: "Stocks",
+    links: [
+      { href: "/admin/stocks", label: "Vue d'ensemble", icon: "📊" },
+      { href: "/admin/stocks/mouvement", label: "Nouveau mouvement", icon: "🔄" },
+      { href: "/admin/stocks/alertes", label: "Alertes stock", icon: "🔔" },
+      { href: "/admin/stocks/inventaire", label: "Inventaires", icon: "📋" },
+    ],
+  },
+  {
     label: "Personnes",
     links: [
       { href: "/admin/clients", label: "Clients", icon: "👥" },
