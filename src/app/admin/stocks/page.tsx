@@ -12,7 +12,6 @@ export default async function StocksPage() {
     { data: products },
     { data: alerts },
     { data: movements },
-    { data: warehouses },
     { data: stats },
   ] = await Promise.all([
     supabase.from("products")
@@ -25,7 +24,6 @@ export default async function StocksPage() {
     supabase.from("stock_movements")
       .select("*, products(name, brand)")
       .order("created_at", { ascending: false }).limit(8),
-    supabase.from("warehouses").select("id, name, code, is_active"),
     supabase.from("products").select("stock, price, is_active"),
   ]);
 

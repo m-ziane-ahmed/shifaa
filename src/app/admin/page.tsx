@@ -153,7 +153,7 @@ export default async function AdminDashboard() {
               </div>
               <div className="space-y-1.5">
                 {(stockAlerts ?? []).slice(0, 3).map((a, i) => {
-                  const product = a.products as { name: string } | null;
+                  const product = (a.products as unknown as { name: string } | null);
                   return (
                     <Link key={i} href="/admin/stocks/alertes"
                       className="flex items-center gap-2 text-xs text-red-700 hover:text-red-900">
