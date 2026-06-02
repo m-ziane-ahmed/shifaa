@@ -31,6 +31,16 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   const body = await req.json();
   const supabase = createAdminClient();
 
+  // Si on met à jour seulement les images
+  if (body.images !== undefined && Object.keys(body).length === 1) {
+    const { error } = await supabase.from("products").update({
+      images: body.images,
+      updated_at: new Date().toISOString(),
+    }).eq("id", id);
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ ok: true });
+  }
+
   // Vérifier l'unicité du slug si changé
   const { data: existing } = await supabase
     .from("products").select("id").eq("slug", body.slug).neq("id", id).maybeSingle();

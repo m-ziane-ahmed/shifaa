@@ -210,7 +210,7 @@ export default async function EditProduitPage({ params }: { params: Promise<{ id
               className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg">
               📦 Gérer les variantes
             </Link>
-            <Link href={`/admin/images?product=${id}`}
+            <Link href={`/admin/images/${id}`}
               className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg">
               🖼️ Gérer les images
             </Link>
