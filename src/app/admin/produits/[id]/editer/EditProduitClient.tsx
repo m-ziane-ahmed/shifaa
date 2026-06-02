@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { CATEGORY_LABELS } from "@/data/categories";
 
 const NEEDS = ["hydratation","anti-âge","purification","apaisement","fortification","protection solaire","nutrition","détente","hygiène","soin bébé"];
@@ -110,19 +111,21 @@ export function EditProduitClient({ product, fournisseurs }: { product: Product;
       <div className="flex items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-2 text-xs text-gray-500 mb-1">
-            <a href="/admin/produits" className="hover:text-shifaa-green">Produits</a>
+            <Link href="/admin/produits"
+            className="hover:text-shifaa-green">Produits</Link>
             <span>›</span>
-            <a href={`/admin/produits/${product.id}`} className="hover:text-shifaa-green">{form.name}</a>
+            <Link href={`/admin/produits/${product.id}`}
+            className="hover:text-shifaa-green">{form.name}</Link>
             <span>›</span>
             <span>Modifier</span>
           </div>
           <h1 className="text-xl font-semibold text-gray-900">Modifier le produit</h1>
         </div>
         <div className="flex gap-2">
-          <a href={`/admin/produits/${product.id}`}
+          <Link href={`/admin/produits/${product.id}`}
             className="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
             Annuler
-          </a>
+          </Link>
           <button onClick={save} disabled={saving}
             className="px-4 py-2 bg-shifaa-green text-white rounded-lg text-sm hover:bg-shifaa-dark disabled:opacity-50 min-w-[120px]">
             {saving ? "Enregistrement…" : success ? "✓ Enregistré !" : "Enregistrer"}
@@ -345,9 +348,9 @@ export function EditProduitClient({ product, fournisseurs }: { product: Product;
 
       {/* Footer */}
       <div className="flex justify-between mt-4">
-        <a href={`/admin/produits/${product.id}`} className="text-sm text-gray-500 hover:text-gray-700">
+        <Link href={`/admin/produits/${product.id}`} className="text-sm text-gray-500 hover:text-gray-700">
           ← Retour à la fiche
-        </a>
+        </Link>
         <button onClick={save} disabled={saving}
           className="px-6 py-2 bg-shifaa-green text-white rounded-lg text-sm hover:bg-shifaa-dark disabled:opacity-50">
           {saving ? "Enregistrement…" : "Enregistrer les modifications"}
