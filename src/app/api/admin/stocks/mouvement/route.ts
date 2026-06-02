@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
 
   await supabase.from("products").update({
     stock: total,
-    in_stock: total > 0,
+    is_active: total > 0,
     ...(Number(quantity) > 0 ? { last_restock_at: new Date().toISOString() } : {}),
   }).eq("id", product_id);
 
