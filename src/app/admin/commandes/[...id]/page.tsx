@@ -31,11 +31,11 @@ async function updateOrderStatus(orderId: string, status: string) {
 export default async function AdminCommandeDetail({
   params,
 }: {
-  params: Promise<{ id: string | string[] }>;
+  params: Promise<{ id: string[] }>;
 }) {
-  const { id: rawId } = await params;
-  // Support [id] simple et [...id] catch-all
-  const id = Array.isArray(rawId) ? rawId.join("/") : decodeURIComponent(rawId);
+  const { id: segments } = await params;
+  // Reconstituer l'ID complet (ex: ["SHF-1780348536352"])
+  const id = segments.join("/");
   const supabase = createAdminClient();
 
   const { data: order } = await supabase
@@ -49,7 +49,6 @@ export default async function AdminCommandeDetail({
   const profile = order.profiles as { name: string; phone: string; email: string; loyalty_points: number } | null;
   const items = order.order_items as Array<{ id: string; name: string; brand: string; slug: string; price: number; quantity: number; image: string }>;
   const currentIdx = STATUS_STEPS.indexOf(order.status);
-
   const updateStatus = updateOrderStatus.bind(null, id);
 
   return (
@@ -146,7 +145,7 @@ export default async function AdminCommandeDetail({
 
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mt-4">
         <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="font-medium text-gray-900">Articles commandés</h2>
+          <h2 className="font-medium text-gray-900">Articles commandés ({items.length})</h2>
         </div>
         <table className="w-full text-sm">
           <thead className="bg-gray-50 text-xs text-gray-500 uppercase">
@@ -158,7 +157,9 @@ export default async function AdminCommandeDetail({
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {items.map((item) => (
+            {items.length === 0 ? (
+              <tr><td colSpan={4} className="px-4 py-6 text-center text-gray-400">Aucun article</td></tr>
+            ) : items.map((item) => (
               <tr key={item.id}>
                 <td className="px-4 py-3">
                   <p className="font-medium text-gray-800">{item.name}</p>
