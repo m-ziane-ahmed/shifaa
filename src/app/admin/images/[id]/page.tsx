@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Upload, Trash2, Star, GripVertical, ArrowLeft, CheckCircle } from "lucide-react";
+import { Upload, Trash2, Star, ArrowLeft, CheckCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase";
 
 type ProductImage = {
@@ -18,7 +18,6 @@ type Product = { id: string; name: string; brand: string; slug: string; images: 
 
 export default function GererImagesPage() {
   const params = useParams();
-  const router = useRouter();
   const productId = params.id as string;
 
   const [product, setProduct] = useState<Product | null>(null);
