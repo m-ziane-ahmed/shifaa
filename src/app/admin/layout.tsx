@@ -49,8 +49,10 @@ const NAV_GROUPS = [
     links: [
       { href: "/admin/stocks", label: "Vue d'ensemble", icon: "📊" },
       { href: "/admin/stocks/mouvement", label: "Nouveau mouvement", icon: "🔄" },
+      { href: "/admin/stocks/transfert", label: "Transfert", icon: "🚚" },
       { href: "/admin/stocks/alertes", label: "Alertes stock", icon: "🔔" },
       { href: "/admin/stocks/inventaire", label: "Inventaires", icon: "📋" },
+      { href: "/admin/stocks/entrepots", label: "Entrepôts", icon: "🏭" },
     ],
   },
   {
