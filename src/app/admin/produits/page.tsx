@@ -4,6 +4,8 @@ import { CATEGORY_LABELS } from "@/data/categories";
 import type { ProductCategory } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 
+import Link from "next/link";
+
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Produits | Admin Shifaa" };
 
@@ -51,7 +53,13 @@ export default async function AdminProduits({
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold text-gray-900">Produits</h1>
-        <span className="text-sm text-gray-500">{count} produit{(count ?? 0) > 1 ? "s" : ""}</span>
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-gray-500">{count} produit{(count ?? 0) > 1 ? "s" : ""}</span>
+          <Link href="/admin/produits/nouveau"
+            className="px-4 py-2 bg-shifaa-green text-white rounded-lg text-sm hover:bg-shifaa-dark transition-colors">
+            + Nouveau produit
+          </Link>
+        </div>
       </div>
 
       {/* Filtres */}
@@ -141,8 +149,12 @@ export default async function AdminProduits({
                     </form>
                   </td>
                   <td className="px-4 py-3 text-center">
-                    <a href={`/produit/${p.slug}`} target="_blank"
-                      className="text-xs text-gray-400 hover:text-shifaa-green">Voir →</a>
+                    <div className="flex gap-2 justify-center">
+                      <a href={`/admin/produits/${p.id}`}
+                        className="text-xs text-shifaa-green hover:underline">Fiche →</a>
+                      <a href={`/produit/${p.slug}`} target="_blank"
+                        className="text-xs text-gray-400 hover:text-shifaa-green">Site ↗</a>
+                    </div>
                   </td>
                 </tr>
               ))}
