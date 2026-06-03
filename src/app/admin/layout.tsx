@@ -39,8 +39,9 @@ const NAV_GROUPS = [
   {
     label: "Catalogue",
     links: [
-      { href: "/admin/produits", label: "Produits", icon: "📦" },
-      { href: "/admin/images", label: "Images", icon: "🖼️" },
+      { href: "/admin/produits",  label: "Produits",     icon: "📦" },
+      { href: "/admin/marques",   label: "Marques",      icon: "🏷️" },
+      { href: "/admin/images",    label: "Images",       icon: "🖼️" },
       { href: "/admin/fournisseurs", label: "Fournisseurs", icon: "🏭" },
     ],
   },
