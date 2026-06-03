@@ -1,3 +1,4 @@
+// Route catch-all pour les commandes SHF-xxx
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase-server";
