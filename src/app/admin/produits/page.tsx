@@ -4,6 +4,7 @@ import { CATEGORY_LABELS } from "@/data/categories";
 import type { ProductCategory } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Produits | Admin Shifaa" };
@@ -193,7 +194,8 @@ export default async function AdminProduits({
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         {p.images?.[0] ? (
-                          <img src={p.images[0]} alt="" className="h-9 w-9 rounded-lg object-cover border border-gray-100 shrink-0" />
+                          <Image src={p.images[0]} alt="" width={36} height={36}
+                            className="h-9 w-9 rounded-lg object-cover border border-gray-100 shrink-0" />
                         ) : (
                           <div className="h-9 w-9 rounded-lg bg-gray-100 flex items-center justify-center shrink-0 text-gray-300 text-xs">📦</div>
                         )}
