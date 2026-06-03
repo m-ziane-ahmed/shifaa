@@ -42,7 +42,7 @@ export default async function AdminDashboard() {
     total_revenue: allOrders.filter((o) => o.status !== "cancelled").reduce((a, o) => a + o.total, 0),
     revenue_today: allOrders.filter((o) => o.status !== "cancelled" && new Date(o.created_at) >= todayStart).reduce((a, o) => a + o.total, 0),
     revenue_this_month: allOrders.filter((o) => o.status !== "cancelled" && new Date(o.created_at) >= monthStart).reduce((a, o) => a + o.total, 0),
-    total_customers: profilesCount ?? 0,
+    total_customers: customersCount ?? 0,
     total_products: productsCount ?? 0,
     pending_orders: allOrders.filter((o) => o.status === "pending").length,
     shipped_orders: allOrders.filter((o) => o.status === "shipped").length,
