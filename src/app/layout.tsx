@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Rubik, Roboto } from "next/font/google";
+import { Rubik, Roboto, Noto_Sans_Arabic } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
 
@@ -15,6 +15,14 @@ const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-roboto",
+  display: "swap",
+});
+
+// Police arabe (RTL)
+const notoArabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-arabic",
   display: "swap",
 });
 
@@ -46,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${rubik.variable} ${roboto.variable}`}>
+    <html lang="fr" dir="ltr" className={`${rubik.variable} ${roboto.variable} ${notoArabic.variable}`}>
       <body className="font-sans min-h-screen flex flex-col">
         <Providers>
           {children}

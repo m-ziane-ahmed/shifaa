@@ -2,20 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Variables CSS charte graphique prototype Shifaa ──── */
+/* ─── Variables CSS charte graphique Shifaa ──────────────── */
 :root {
-  --color-primary:   #4aab3d;
+  --color-primary:      #4aab3d;
   --color-primary-dark: #193a15;
-  --color-primary-hover: #3c9830;
-  --color-secondary: #1b1a1a;
-  --color-white:     #ffffff;
-  --color-gray:      #9b9b9b;
-  --color-border:    #eaeaea;
-  --color-bg:        #f9f9f9;
-  --color-heading:   #282828;
+  --color-primary-hover:#3c9830;
+  --color-secondary:    #1b1a1a;
+  --color-white:        #ffffff;
+  --color-gray:         #9b9b9b;
+  --color-border:       #eaeaea;
+  --color-bg:           #f9f9f9;
+  --color-heading:      #282828;
+  --transition:         all 0.3s ease;
+}
 
-  /* Transitions standard */
-  --transition: all 0.3s ease;
+/* ─── Police arabe ───────────────────────────────────────── */
+[lang="ar"],
+[dir="rtl"] {
+  font-family: var(--font-arabic), "Noto Sans Arabic", "Rubik", system-ui, sans-serif;
+}
+
+/* ─── Support RTL global ─────────────────────────────────── */
+[dir="rtl"] {
+  text-align: right;
+}
+
+/* Inverser les marges/paddings directionnels en RTL */
+[dir="rtl"] .rtl\:flip-x {
+  transform: scaleX(-1);
+}
+
+/* Titres en arabe */
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: var(--font-arabic), "Noto Sans Arabic", "Rubik", system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* Inputs RTL */
+[dir="rtl"] input,
+[dir="rtl"] select,
+[dir="rtl"] textarea {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Flex RTL — les flex-row deviennent row-reverse en RTL */
+[dir="rtl"] .rtl-reverse {
+  flex-direction: row-reverse;
+}
+
+/* Marges logiques (compatibilité RTL native) */
+[dir="rtl"] .ml-auto { margin-left: unset; margin-right: auto; }
+[dir="rtl"] .mr-auto { margin-right: unset; margin-left: auto; }
+[dir="rtl"] .left-0  { left: unset; right: 0; }
+[dir="rtl"] .right-0 { right: unset; left: 0; }
+[dir="rtl"] .rounded-l-xl { border-radius: 0 0.75rem 0.75rem 0; }
+[dir="rtl"] .rounded-r-xl { border-radius: 0.75rem 0 0 0.75rem; }
+
+/* Icônes directionnelles */
+[dir="rtl"] .icon-directional {
+  transform: scaleX(-1);
+}
+
+/* Nombre : toujours LTR même en RTL (prix, quantités) */
+.number,
+.price,
+.phone-number {
+  direction: ltr;
+  unicode-bidi: embed;
 }
 
 @layer base {

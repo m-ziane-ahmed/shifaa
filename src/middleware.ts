@@ -1,15 +1,31 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+const SUPPORTED_LOCALES = ["fr", "ar"];
+const DEFAULT_LOCALE = "fr";
+
+function detectLocale(request: NextRequest): string {
+  // 1. Cookie utilisateur (priorité maximale)
+  const cookieLocale = request.cookies.get("shifaa_locale")?.value;
+  if (cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale)) {
+    return cookieLocale;
+  }
+  // 2. Accept-Language header
+  const acceptLang = request.headers.get("accept-language") ?? "";
+  if (acceptLang.startsWith("ar")) return "ar";
+  return DEFAULT_LOCALE;
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Exclure les fichiers statiques et manifest du middleware Supabase
+  // Exclure les fichiers statiques et manifest du middleware
   if (
     pathname.startsWith("/_next") ||
     pathname === "/manifest.json" ||
     pathname === "/manifest.webmanifest" ||
     pathname === "/favicon.ico" ||
+    pathname.startsWith("/locales") ||
     /\.(?:svg|png|jpg|jpeg|gif|webp|ico|json|txt|xml)$/.test(pathname)
   ) {
     return NextResponse.next();
@@ -40,6 +56,10 @@ export async function middleware(request: NextRequest) {
 
   // Rafraîchir la session si expirée
   await supabase.auth.getUser();
+
+  // Ajouter le header locale pour les Server Components
+  const locale = detectLocale(request);
+  supabaseResponse.headers.set("x-locale", locale);
 
   return supabaseResponse;
 }

@@ -1,0 +1,16 @@
+{
+  "title": "Nos Marques",
+  "subtitle": "Découvrez nos marques soigneusement sélectionnées",
+  "local_brands": "Marques Algériennes",
+  "international": "Marques Internationales",
+  "featured": "Marques Vedettes",
+  "all_products": "Tous les produits",
+  "products_count": "{count} produits",
+  "categories": "Catégories",
+  "local_badge": "🇩🇿 Marque locale",
+  "certified_badge": "✓ Certifiée",
+  "view_brand": "Voir la marque",
+  "filter_all": "Toutes",
+  "filter_local": "Algériennes",
+  "filter_featured": "Vedettes"
+}

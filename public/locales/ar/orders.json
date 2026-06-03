@@ -1,0 +1,43 @@
+{
+  "status": {
+    "pending": "قيد الانتظار",
+    "pending_payment": "في انتظار الدفع",
+    "confirmed": "مؤكدة",
+    "cod_pending_confirmation": "في انتظار تأكيد الدفع عند الاستلام",
+    "cod_confirmed": "تأكيد الدفع عند الاستلام",
+    "in_preparation": "قيد التحضير",
+    "shipped": "تم الشحن",
+    "in_delivery": "قيد التوصيل",
+    "delivered": "تم التسليم",
+    "refused": "مرفوضة",
+    "returned": "مُعادة",
+    "cancelled": "ملغاة"
+  },
+  "payment": {
+    "cod": "الدفع عند الاستلام",
+    "cib": "بطاقة CIB (ساتيم)",
+    "edahabia": "بطاقة البريد الجزائري",
+    "baridimob": "بريدي موب",
+    "virement": "تحويل بنكي"
+  },
+  "my_orders": "طلباتي",
+  "order_number": "طلب رقم",
+  "order_date": "بتاريخ",
+  "order_items": "{count} منتج",
+  "track_order": "تتبع طلبي",
+  "view_detail": "عرض التفاصيل",
+  "reorder": "إعادة الطلب",
+  "download_invoice": "تحميل الفاتورة",
+  "no_orders": "ليس لديك طلبات بعد",
+  "start_shopping": "ابدأ التسوق",
+  "delivery_to": "التوصيل إلى",
+  "estimated_delivery": "التسليم المتوقع",
+  "tracking_number": "رقم التتبع",
+  "cod_info": "ستدفع نقداً عند الاستلام",
+  "invoice": "فاتورة",
+  "invoice_number": "رقم الفاتورة",
+  "total_ht": "المجموع بدون ضريبة",
+  "tva": "الضريبة على القيمة المضافة ({rate}%)",
+  "timbre_fiscal": "الطابع الجبائي",
+  "total_ttc": "المجموع الكلي"
+}

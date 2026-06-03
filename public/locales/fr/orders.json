@@ -1,0 +1,43 @@
+{
+  "status": {
+    "pending": "En attente",
+    "pending_payment": "En attente de paiement",
+    "confirmed": "Confirmée",
+    "cod_pending_confirmation": "En attente confirmation COD",
+    "cod_confirmed": "COD confirmée",
+    "in_preparation": "En préparation",
+    "shipped": "Expédiée",
+    "in_delivery": "En cours de livraison",
+    "delivered": "Livrée",
+    "refused": "Refusée",
+    "returned": "Retournée",
+    "cancelled": "Annulée"
+  },
+  "payment": {
+    "cod": "Paiement à la livraison (COD)",
+    "cib": "Carte CIB (SATIM)",
+    "edahabia": "Carte Edahabia (Algérie Poste)",
+    "baridimob": "BaridiMob",
+    "virement": "Virement bancaire"
+  },
+  "my_orders": "Mes commandes",
+  "order_number": "Commande N°",
+  "order_date": "Passée le",
+  "order_items": "{count} article(s)",
+  "track_order": "Suivre ma commande",
+  "view_detail": "Voir le détail",
+  "reorder": "Commander à nouveau",
+  "download_invoice": "Télécharger la facture",
+  "no_orders": "Vous n'avez pas encore de commandes",
+  "start_shopping": "Commencer mes achats",
+  "delivery_to": "Livraison à",
+  "estimated_delivery": "Livraison estimée",
+  "tracking_number": "N° de suivi",
+  "cod_info": "Vous payez à la livraison en espèces",
+  "invoice": "Facture",
+  "invoice_number": "N° de facture",
+  "total_ht": "Total HT",
+  "tva": "TVA ({rate}%)",
+  "timbre_fiscal": "Timbre fiscal",
+  "total_ttc": "Total TTC"
+}
