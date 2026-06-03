@@ -35,15 +35,39 @@ export default async function AdminCommandeDetail({
   params: Promise<{ id: string[] }>;
 }) {
   const { id: segments } = await params;
-  // Reconstituer l'ID complet (ex: ["SHF-1780348536352"])
-  const id = segments.join("/");
+  // Reconstituer l'ID — les tirets sont préservés par Next.js
+  // segments = ["SHF-1780348536352"] ou ["SHF", "1780348536352"] selon la version
+  const id = Array.isArray(segments) ? segments.join("-").replace(/^-/, "") : segments;
+  // Essayer d'abord l'ID joint par tiret, puis par slash
   const supabase = createAdminClient();
 
-  const { data: order } = await supabase
+  // Chercher avec tiret d'abord
+  let { data: order } = await supabase
     .from("orders")
     .select("*, order_items(*), profiles(name, phone, email, loyalty_points)")
     .eq("id", id)
-    .single();
+    .maybeSingle();
+
+  // Si pas trouvé, essayer avec slash (fallback)
+  if (!order) {
+    const idWithSlash = Array.isArray(segments) ? segments.join("/") : segments;
+    const { data: order2 } = await supabase
+      .from("orders")
+      .select("*, order_items(*), profiles(name, phone, email, loyalty_points)")
+      .eq("id", idWithSlash)
+      .maybeSingle();
+    order = order2;
+  }
+
+  // Chercher aussi sans préfixe au cas où
+  if (!order) {
+    const { data: order3 } = await supabase
+      .from("orders")
+      .select("*, order_items(*), profiles(name, phone, email, loyalty_points)")
+      .ilike("id", `%${segments[segments.length - 1]}%`)
+      .maybeSingle();
+    order = order3;
+  }
 
   if (!order) notFound();
 
