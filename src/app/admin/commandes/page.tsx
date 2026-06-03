@@ -125,7 +125,7 @@ export default async function AdminCommandes({
                 return (
                   <tr key={o.id} className="hover:bg-gray-50 transition group">
                     <td className="px-4 py-3">
-                      <Link href={`/admin/commandes/detail?id=${encodeURIComponent(o.id)}`}
+                      <Link href={`/admin/commandes/show?id=${encodeURIComponent(o.id)}`}
                         className="font-mono text-[11px] text-shifaa-green hover:underline">
                         {o.id.slice(0, 13)}…
                       </Link>

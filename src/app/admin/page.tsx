@@ -259,7 +259,7 @@ export default async function AdminDashboard() {
                       {new Date(o.created_at).toLocaleDateString("fr-DZ", { day: "2-digit", month: "short" })}
                     </td>
                     <td className="px-4 py-3">
-                      <Link href={`/admin/commandes/detail?id=${encodeURIComponent(o.id)}`}
+                      <Link href={`/admin/commandes/show?id=${encodeURIComponent(o.id)}`}
                         className="text-xs text-shifaa-green hover:underline">
                         Détails →
                       </Link>
