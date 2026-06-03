@@ -14,8 +14,8 @@ export default async function AdminDashboard() {
     { data: topProducts },
     { data: stockAlerts },
     { data: ordersData },
-    { data: profilesCount },
-    { data: productsCount },
+    { count: customersCount },
+    { count: productsCount },
   ] = await Promise.all([
     supabase.from("orders")
       .select("id, total, status, payment, wilaya, created_at, guest_name")
@@ -27,8 +27,8 @@ export default async function AdminDashboard() {
       .select("alert_type, products(name)")
       .eq("is_resolved", false).limit(5),
     supabase.from("orders").select("total, status, created_at"),
-    supabase.from("profiles").select("id", { count: "exact" }).eq("role", "user"),
-    supabase.from("products").select("id", { count: "exact" }).eq("is_active", true),
+    supabase.from("profiles").select("id", { count: "exact", head: true }),
+    supabase.from("products").select("id", { count: "exact", head: true }),
   ]);
 
   // Calculer les stats
