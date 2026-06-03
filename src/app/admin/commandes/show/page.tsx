@@ -47,7 +47,7 @@ export default async function ShowCommandePage({
   const supabase = createAdminClient();
   const { data: order, error } = await supabase
     .from("orders")
-    .select("*, order_items(*), profiles(name, phone, email)")
+    .select("*, order_items(*), profiles(name, phone)")
     .eq("id", id)
     .maybeSingle();
 
