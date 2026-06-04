@@ -143,7 +143,7 @@ export default function EditerMarquePage() {
                 className={`${inputCls} font-mono text-xs`} />
             </div>
             <div>
-              <label className={labelCls}>Pays d'origine</label>
+              <label className={labelCls}>Pays d&apos;origine</label>
               <select value={form.country_origin} onChange={(e) => setForm((f) => ({ ...f, country_origin: e.target.value }))} className={inputCls}>
                 <option value="DZ">🇩🇿 Algérie</option>
                 <option value="FR">🇫🇷 France</option>
@@ -267,7 +267,7 @@ export default function EditerMarquePage() {
             ))}
           </div>
           <div className="sm:w-1/4">
-            <label className={labelCls}>Ordre d'affichage</label>
+            <label className={labelCls}>Ordre d&apos;affichage</label>
             <input type="number" value={form.display_order} min={1}
               onChange={(e) => setForm((f) => ({ ...f, display_order: Number(e.target.value) }))} className={inputCls} />
           </div>

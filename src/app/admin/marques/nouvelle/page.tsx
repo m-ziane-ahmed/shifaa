@@ -130,7 +130,7 @@ export default function NouvelleMaquePage() {
               <p className="text-[10px] text-gray-400 mt-1">/boutique?brand={form.slug || "..."}</p>
             </div>
             <div>
-              <label className={labelCls}>Pays d'origine</label>
+              <label className={labelCls}>Pays d&apos;origine</label>
               <select value={form.country_origin} onChange={(e) => setForm((f) => ({ ...f, country_origin: e.target.value }))}
                 className={inputCls}>
                 <option value="DZ">🇩🇿 Algérie</option>
@@ -310,7 +310,7 @@ export default function NouvelleMaquePage() {
             </div>
           </div>
           <div className="sm:w-1/3">
-            <label className={labelCls}>Ordre d'affichage</label>
+            <label className={labelCls}>Ordre d&apos;affichage</label>
             <input type="number" value={form.display_order} min={1}
               onChange={(e) => setForm((f) => ({ ...f, display_order: Number(e.target.value) }))}
               className={inputCls} />
