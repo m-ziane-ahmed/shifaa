@@ -145,9 +145,10 @@ export default async function StocksProduitsPage({
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
-                        <Link href={`/admin/stocks/mouvement?product_id=${p.id}`}
-                          className="text-xs px-2 py-1 border border-gray-200 rounded text-gray-600 hover:border-shifaa-green hover:text-shifaa-green">
-                          Mouvement
+                        <Link href={`/admin/stocks/mouvement`}
+                          className="text-xs px-2 py-1 border border-gray-200 rounded text-gray-600 hover:border-shifaa-green hover:text-shifaa-green"
+                          title={`Créer un mouvement pour ${p.name}`}>
+                          + BL
                         </Link>
                         <Link href={`/admin/produits/${p.id}`}
                           className="text-xs text-gray-400 hover:text-shifaa-green">
