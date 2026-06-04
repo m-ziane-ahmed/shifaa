@@ -26,7 +26,16 @@ export async function PATCH(
     }
   }
   if (status === "picked_up")       updates.picked_up_at  = new Date().toISOString();
-  if (status === "failed")          updates.attempt_count = supabase.rpc;
+  if (status === "failed") {
+    // Incrémenter attempt_count
+    const { data: current } = await supabase
+      .from("deliveries")
+      .select("attempt_count")
+      .eq("id", id)
+      .single();
+    updates.attempt_count = ((current?.attempt_count as number) ?? 0) + 1;
+    updates.last_attempt_at = new Date().toISOString();
+  }
   if (status === "returned")        updates.returned_at   = new Date().toISOString();
 
   const { data: delivery, error } = await supabase
