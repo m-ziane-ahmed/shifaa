@@ -138,7 +138,7 @@ export default function NouvelleCategorieePage() {
               className={inputCls} placeholder="💊" />
           </div>
           <div>
-            <label className={labelCls}>Ordre d'affichage</label>
+            <label className={labelCls}>Ordre d&apos;affichage</label>
             <input type="number" value={form.display_order} min={1}
               onChange={(e) => setForm((f) => ({ ...f, display_order: Number(e.target.value) }))}
               className={inputCls} />
