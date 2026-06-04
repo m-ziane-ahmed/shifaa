@@ -8,14 +8,20 @@ export const metadata = { title: "Rapports | Admin Shifaa" };
 export default async function AdminRapports() {
   const supabase = createAdminClient();
 
-  const [topProducts, topWilayas, revenueByMonth, ordersByStatus, stockData] = await Promise.all([
+  const [topProducts, topWilayas, revenueByMonth, ordersByStatus, stockKpis, categoryData] = await Promise.all([
     supabase.from("order_items").select("name, brand, quantity, price")
       .order("quantity", { ascending: false }).limit(10),
     supabase.from("orders").select("wilaya, total").neq("status", "cancelled"),
     supabase.from("orders").select("total, created_at").neq("status", "cancelled")
       .gte("created_at", new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString()),
     supabase.from("orders").select("status"),
-    supabase.from("products").select("stock, price, category, is_active"),
+    // RPC exacte — calcul sur TOUS les produits actifs sans limit()
+    supabase.rpc("get_stock_kpis"),
+    // Répartition par catégorie depuis la DB directement
+    supabase.from("products")
+      .select("category")
+      .eq("is_active", true)
+      .not("category", "is", null),
   ]);
 
   // CA par wilaya
@@ -42,12 +48,17 @@ export default async function AdminRapports() {
   }
   const totalOrders = Object.values(statusMap).reduce((a, b) => a + b, 0);
 
-  // Stats stock
-  const products = stockData.data ?? [];
-  const stockValue = products.reduce((s, p) => s + ((p.stock ?? 0) * (p.price ?? 0)), 0);
-  const outOfStock = products.filter((p) => (p.stock ?? 0) === 0).length;
+  // KPIs stock exacts depuis RPC (mêmes chiffres que /admin/stocks)
+  const kpis = stockKpis.data as {
+    total_products: number; out_of_stock: number; critical: number;
+    low_stock: number; ok_stock: number; total_units: number; stock_value: number;
+  } | null;
+  const stockValue = kpis?.stock_value ?? 0;
+  const outOfStock = kpis?.out_of_stock ?? 0;
+
+  // Répartition par catégorie
   const categoryMap: Record<string, number> = {};
-  for (const p of products) {
+  for (const p of categoryData.data ?? []) {
     if (p.category) categoryMap[p.category] = (categoryMap[p.category] ?? 0) + 1;
   }
   const topCategories = Object.entries(categoryMap).sort(([, a], [, b]) => b - a).slice(0, 6);
