@@ -84,6 +84,26 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     meta_title:        body.meta_title || null,
     meta_description:  body.meta_description || null,
     supplier_id:       body.supplier_id || null,
+    // Champs V4 bilingues AR
+    name_ar:           body.name_ar           || null,
+    slug_ar:           body.slug_ar           || null,
+    short_desc_ar:     body.short_desc_ar     || null,
+    description_ar:    body.description_ar    || null,
+    ingredients_ar:    body.ingredients_ar    || null,
+    usage_ar:          body.usage_ar          || null,
+    precautions_ar:    body.precautions_ar    || null,
+    meta_title_ar:     body.meta_title_ar     || null,
+    meta_desc_ar:      body.meta_desc_ar      || null,
+    // Champs V4 réglementaires
+    tva_rate:          body.tva_rate          ? Number(body.tva_rate)  : 19,
+    price_ht:          body.price_ht          ? Number(body.price_ht) : null,
+    barcode_ean:       body.barcode_ean       || null,
+    has_expiry:        body.has_expiry        ?? false,
+    requires_lot:      body.requires_lot      ?? false,
+    allergens:         body.allergens         ?? [],
+    conservation_conditions: body.conservation_conditions || null,
+    compliance_note:   body.compliance_note   || null,
+    regulatory_category: body.regulatory_category || null,
     updated_at:        new Date().toISOString(),
   }).eq("id", id);
 
