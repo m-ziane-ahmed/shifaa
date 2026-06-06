@@ -31,9 +31,10 @@ const NAV_GROUPS = [
   {
     label: "Ventes",
     links: [
-      { href: "/admin/commandes", label: "Commandes", icon: "🛒" },
-      { href: "/admin/codes-promo", label: "Codes promo", icon: "🎟️" },
-      { href: "/admin/avis", label: "Avis clients", icon: "⭐" },
+      { href: "/admin/commandes",     label: "Commandes",   icon: "📋" },
+      { href: "/admin/commandes/cod", label: "Module COD",  icon: "💰" },
+      { href: "/admin/codes-promo",   label: "Codes promo", icon: "🎟️" },
+      { href: "/admin/avis",          label: "Avis clients", icon: "⭐" },
     ],
   },
   {
